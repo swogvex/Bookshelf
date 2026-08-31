@@ -1,6 +1,6 @@
 ---
-const cover = "../../public/VinyPlayer/cover/tiffany-day-halo-Cover-Art.webp";
-const song = "../../public/VinyPlayer/audio/Tiffany Day - COPYCAT.mp3";
+const cover = "/VinyPlayer/cover/tiffany-day-halo-Cover-Art.webp";
+const song = "/VinyPlayer/audio/Tiffany-Day-COPYCAT.mp3";
 ---
 
 <div transition:persist class="record-player" id="player">
@@ -180,7 +180,11 @@ const song = "../../public/VinyPlayer/audio/Tiffany Day - COPYCAT.mp3";
   const audio = document.getElementById("audio");
   const vinyl = document.getElementById("vinyl");
 
-  player?.addEventListener("click", () => {
+  if (!player || !audio || !vinyl) {
+    throw new Error("Vinyl player elements are missing.");
+  }
+
+  player.addEventListener("click", () => {
     if (audio.paused) {
       audio.play();
       player.classList.add("playing");
