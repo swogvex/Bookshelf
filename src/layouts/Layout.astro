@@ -2,6 +2,7 @@
 import { ClientRouter } from "astro:transitions";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
 
 const { title = "Bookshelf" } = Astro.props;
 const pathname = Astro.url.pathname;
@@ -39,5 +40,7 @@ const isWritings = pathname.startsWith("/writings");
     <main>
       <slot />
     </main>
+    <SpeedInsights />
+    <Analytics />
   </body>
 </html>
