@@ -1,0 +1,42 @@
+---
+import { ClientRouter } from "astro:transitions";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+const { title = "Bookshelf" } = Astro.props;
+const pathname = Astro.url.pathname;
+const isHome = pathname === "/";
+const isBooks = pathname.startsWith("/books");
+const isWritings = pathname.startsWith("/writings");
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <ClientRouter />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-header__top">
+        <h1>Bookshelf</h1>
+
+        <ThemeToggle />
+      </div>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="/" class={isHome ? "active" : ""}>About</a>
+        <span aria-hidden="true">·</span>
+        <a href="/books" class={isBooks ? "active" : ""}>Books</a>
+        <span aria-hidden="true">·</span>
+        <a href="/writings" class={isWritings ? "active" : ""}>Writings</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

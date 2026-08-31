@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "astro": "^7.2.9",
+    "lucide-astro": "^0.556.0",
     "zod": "^4.5.4"
   },
   "allowScripts": {

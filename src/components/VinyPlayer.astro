@@ -3,133 +3,176 @@ const cover = "/public/VinyPlayer/tiffany-day-halo-Cover-Art.webp";
 const song = "/public/VinyPlayer/Tiffany Day - COPYCAT.mp3";
 ---
 
-<div class="record-player" id="player">
-
+<div transition:persist class="record-player" id="player">
   <div class="vinyl" id="vinyl">
+    <div class="vinyl-label" style={`background-image:url(${cover})`}></div>
     <div class="vinyl-center"></div>
   </div>
 
-  <img
-    src={cover}
-    alt="Album cover"
-    class="cover"
-  />
+  <img src={cover} alt="Album cover" class="cover" />
 
-  <audio id="audio" src={song}></audio>
-
+  <audio transition:persist id="audio" src={song}></audio>
 </div>
 
 <style>
-.record-player {
-  position: relative;
+  .record-player {
+    --size: clamp(90px, 11vw, 100px);
+    position: relative;
 
-  width: 180px;
-  height: 180px;
+    width: var(--size);
+    height: var(--size);
 
-  cursor: pointer;
-}
+    cursor: pointer;
+  }
 
-.cover {
-  position: absolute;
+  .cover {
+    position: absolute;
 
-  width: 180px;
-  height: 180px;
+    width: 100%;
+    height: 100%;
 
-  object-fit: cover;
+    object-fit: cover;
 
-  z-index: 2;
+    border-radius: 16px;
 
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.15);
-}
+    z-index: 2;
 
-.vinyl {
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.35),
+      0 0 40px rgba(0, 0, 0, 0.15);
 
-  position: absolute;
+    overflow: hidden;
 
-  top: 10px;
-  right: -70px;
+    transition: transform 0.4s ease;
+  }
 
-  width: 160px;
-  height: 160px;
+  .vinyl {
+    position: absolute;
 
-  border-radius: 50%;
+    top: 6%;
+    right: -70px;
 
-  background:
-    radial-gradient(circle at center,
-      #222 0%,
-      #111 25%,
+    width: 88%;
+    height: 88%;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+      circle at center,
+      #2f2f2f 0%,
+      #181818 10%,
+      #090909 55%,
       #000 100%
     );
 
-  box-shadow:
-    inset 0 0 20px rgba(255,255,255,.05),
-    0 10px 20px rgba(0,0,0,.2);
+    box-shadow:
+      inset 0 0 25px rgba(255, 255, 255, 0.08),
+      inset 0 0 80px rgba(255, 255, 255, 0.03),
+      0 15px 30px rgba(0, 0, 0, 0.35);
 
-  transition:
-    right .4s ease;
+    transition: right 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
 
-  animation:
-    spin 3s linear infinite;
+    animation: spin 4s linear infinite;
 
-  animation-play-state: paused;
-}
+    animation-play-state: paused;
+  }
 
-.record-player.playing .vinyl {
-  right: -120px;
-}
+  .record-player.playing .vinyl {
+    right: -55%;
+  }
 
-.vinyl::before {
-  content: "";
+  .record-player:not(.playing) .vinyl {
+    right: -15%;
+  }
 
-  position: absolute;
+  .vinyl::before {
+    content: "";
 
-  inset: 0;
+    position: absolute;
+    inset: 0;
 
-  border-radius: 50%;
+    border-radius: inherit;
 
-  background:
-    repeating-radial-gradient(
+    background: repeating-radial-gradient(
       circle,
-      transparent 0px,
-      transparent 4px,
-      rgba(255,255,255,.03) 5px
+      rgba(255, 255, 255, 0.05) 0px,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 2px,
+      transparent 5px
     );
-}
 
-.vinyl-center {
-
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-
-  width: 30px;
-  height: 30px;
-
-  border-radius: 50%;
-
-  background: #e8dfcf;
-
-  transform:
-    translate(-50%, -50%);
-}
-
-.vinyl.playing {
-  animation-play-state: running;
-}
-
-@keyframes spin {
-
-  from {
-    transform: rotate(0deg);
+    opacity: 0.5;
   }
 
-  to {
-    transform: rotate(360deg);
+  .vinyl::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+      130deg,
+      rgba(255, 255, 255, 0.18),
+      transparent 35%,
+      transparent 65%,
+      rgba(255, 255, 255, 0.08)
+    );
+
+    mix-blend-mode: screen;
   }
 
-}
+  .vinyl-label {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 38%;
+    height: 38%;
+
+    border-radius: 50%;
+
+    background-size: cover;
+    background-position: center;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 2;
+  }
+
+  .vinyl-center {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 8%;
+    height: 8%;
+
+    border-radius: 50%;
+
+    background: #f4f4f4;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 3;
+  }
+
+  .vinyl.playing {
+    animation-play-state: running;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
 </style>
 
 <script>
@@ -138,7 +181,6 @@ const song = "/public/VinyPlayer/Tiffany Day - COPYCAT.mp3";
   const vinyl = document.getElementById("vinyl");
 
   player?.addEventListener("click", () => {
-
     if (audio.paused) {
       audio.play();
       player.classList.add("playing");
@@ -148,6 +190,5 @@ const song = "/public/VinyPlayer/Tiffany Day - COPYCAT.mp3";
       player.classList.remove("playing");
       vinyl.classList.remove("playing");
     }
-
   });
 </script>

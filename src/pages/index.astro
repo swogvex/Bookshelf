@@ -1,26 +1,13 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import VinylPlayer from "../components/VinyPlayer.astro";
+import "../styles/global.css";
 ---
 
-<html lang="en">
-  <body>
-    <main class="home">
-      <div class="player-wrapper">
-        <VinylPlayer />
-      </div>
-    </main>
-
-    <style>
-      .home {
-        min-height: 100vh;
-        position: relative;
-      }
-
-      .player-wrapper {
-        position: fixed;
-        left: 3rem;
-        bottom: 3rem;
-      }
-    </style>
-  </body>
-</html>
+<Layout title="Bookshelf">
+  <section class="home">
+    <div class="player-wrapper">
+      <VinylPlayer />
+    </div>
+  </section>
+</Layout>
