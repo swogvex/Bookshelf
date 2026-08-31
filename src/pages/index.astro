@@ -1,0 +1,26 @@
+---
+import VinylPlayer from "../components/VinyPlayer.astro";
+---
+
+<html lang="en">
+  <body>
+    <main class="home">
+      <div class="player-wrapper">
+        <VinylPlayer />
+      </div>
+    </main>
+
+    <style>
+      .home {
+        min-height: 100vh;
+        position: relative;
+      }
+
+      .player-wrapper {
+        position: fixed;
+        left: 3rem;
+        bottom: 3rem;
+      }
+    </style>
+  </body>
+</html>

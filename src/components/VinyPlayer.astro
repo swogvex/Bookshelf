@@ -1,0 +1,153 @@
+---
+const cover = "/public/VinyPlayer/tiffany-day-halo-Cover-Art.webp";
+const song = "/public/VinyPlayer/Tiffany Day - COPYCAT.mp3";
+---
+
+<div class="record-player" id="player">
+
+  <div class="vinyl" id="vinyl">
+    <div class="vinyl-center"></div>
+  </div>
+
+  <img
+    src={cover}
+    alt="Album cover"
+    class="cover"
+  />
+
+  <audio id="audio" src={song}></audio>
+
+</div>
+
+<style>
+.record-player {
+  position: relative;
+
+  width: 180px;
+  height: 180px;
+
+  cursor: pointer;
+}
+
+.cover {
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  object-fit: cover;
+
+  z-index: 2;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.15);
+}
+
+.vinyl {
+
+  position: absolute;
+
+  top: 10px;
+  right: -70px;
+
+  width: 160px;
+  height: 160px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(circle at center,
+      #222 0%,
+      #111 25%,
+      #000 100%
+    );
+
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,.05),
+    0 10px 20px rgba(0,0,0,.2);
+
+  transition:
+    right .4s ease;
+
+  animation:
+    spin 3s linear infinite;
+
+  animation-play-state: paused;
+}
+
+.record-player.playing .vinyl {
+  right: -120px;
+}
+
+.vinyl::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  background:
+    repeating-radial-gradient(
+      circle,
+      transparent 0px,
+      transparent 4px,
+      rgba(255,255,255,.03) 5px
+    );
+}
+
+.vinyl-center {
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background: #e8dfcf;
+
+  transform:
+    translate(-50%, -50%);
+}
+
+.vinyl.playing {
+  animation-play-state: running;
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+</style>
+
+<script>
+  const player = document.getElementById("player");
+  const audio = document.getElementById("audio");
+  const vinyl = document.getElementById("vinyl");
+
+  player?.addEventListener("click", () => {
+
+    if (audio.paused) {
+      audio.play();
+      player.classList.add("playing");
+      vinyl.classList.add("playing");
+    } else {
+      audio.pause();
+      player.classList.remove("playing");
+      vinyl.classList.remove("playing");
+    }
+
+  });
+</script>
