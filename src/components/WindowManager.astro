@@ -1,0 +1,58 @@
+<div id="window-manager"></div>
+
+<style>
+  #window-manager {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 1000;
+  }
+
+  .book-window {
+    position: absolute;
+
+    width: min(700px, 90vw);
+
+    background: var(--bg);
+
+    border: 1px solid var(--border);
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+
+    pointer-events: auto;
+  }
+
+  .book-window__header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem;
+
+    border-bottom: 1px solid var(--border);
+
+    cursor: move;
+  }
+
+  .book-window__content {
+    padding: 1.5rem;
+  }
+
+  .book-window__close {
+    background: none;
+    border: none;
+
+    cursor: pointer;
+
+    color: inherit;
+    font-size: 1rem;
+  }
+
+  .book-window img {
+    width: 140px;
+    border-radius: 6px;
+  }
+</style>

@@ -1,17 +1,92 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import BookCard from "../components/BookCard.astro";
+import WindowManager from "../components/WindowManager.astro";
 
 import { getCollection } from "astro:content";
 import "../styles/global.css";
 
 const books = await getCollection("books");
+const booksData = books.map((book) => ({
+  id: book.id,
+  ...book.data,
+  body: book.body,
+}));
 ---
 
 <Layout title="Books">
   <section class="books-grid">
     {books.map((book) => <BookCard book={book} />)}
   </section>
+  <WindowManager />
+
+  <script define:vars={{ booksData }}>
+    window.booksData = booksData;
+
+    let offset = 0;
+
+    document.addEventListener("click", (event) => {
+      const card = event.target.closest(".book-card");
+
+      if (!card) return;
+
+      const id = card.dataset.bookId;
+
+      const book = booksData.find((b) => b.id === id);
+
+      if (!book) return;
+
+      const manager = document.getElementById("window-manager");
+
+      const windowEl = document.createElement("div");
+
+      windowEl.className = "book-window";
+
+      windowEl.style.left = `${120 + offset}px`;
+
+      windowEl.style.top = `${120 + offset}px`;
+
+      offset += 40;
+
+      windowEl.innerHTML = `
+      <div class="book-window__header">
+
+        <span>${book.title}</span>
+
+        <button
+          class="book-window__close"
+        >
+          ✕
+        </button>
+
+      </div>
+
+      <div class="book-window__content">
+
+        <img src="${book.cover}">
+
+        <h2>${book.title}</h2>
+
+        <p>${book.author}</p>
+
+        <hr>
+
+        <p>${book.body}</p>
+
+      </div>
+    `;
+
+      manager.appendChild(windowEl);
+    });
+
+    document.addEventListener("click", (event) => {
+      const close = event.target.closest(".book-window__close");
+
+      if (!close) return;
+
+      close.closest(".book-window").remove();
+    });
+  </script>
 </Layout>
 
 <style>
