@@ -19,9 +19,8 @@ import { Moon, Sun } from "lucide-astro";
 
 <script is:inline>
   const root = document.documentElement;
-  const button = document.getElementById("theme-toggle");
 
-  const applyTheme = (dark) => {
+  const applyTheme = (dark, button) => {
     root.classList.toggle("dark", dark);
     button?.setAttribute("aria-pressed", String(dark));
     button?.setAttribute(
@@ -30,19 +29,30 @@ import { Moon, Sun } from "lucide-astro";
     );
   };
 
-  const savedTheme = localStorage.getItem("theme");
+  const initializeThemeToggle = () => {
+    const button = document.getElementById("theme-toggle");
+    const savedTheme = localStorage.getItem("theme");
 
-  if (savedTheme === "dark") {
-    applyTheme(true);
-  } else if (savedTheme === "light") {
-    applyTheme(false);
-  } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    applyTheme(true);
-  }
+    if (savedTheme === "dark") {
+      applyTheme(true, button);
+    } else if (savedTheme === "light") {
+      applyTheme(false, button);
+    } else {
+      applyTheme(
+        window.matchMedia("(prefers-color-scheme: dark)").matches,
+        button,
+      );
+    }
 
-  button?.addEventListener("click", () => {
-    const nextTheme = !root.classList.contains("dark");
-    applyTheme(nextTheme);
-    localStorage.setItem("theme", nextTheme ? "dark" : "light");
-  });
+    if (button) {
+      button.onclick = () => {
+        const nextTheme = !root.classList.contains("dark");
+        applyTheme(nextTheme, button);
+        localStorage.setItem("theme", nextTheme ? "dark" : "light");
+      };
+    }
+  };
+
+  initializeThemeToggle();
+  document.addEventListener("astro:page-load", initializeThemeToggle);
 </script>
