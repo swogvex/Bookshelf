@@ -6,7 +6,7 @@ cover: "/books/RASPBERRY-PI-CON-PYTHON.webp"
 
 year: 2025
 
-rating: 5
+rating: 3
 
 genres:
   - Técnico

@@ -6,7 +6,7 @@ cover: "/books/BIBLIOTECA-MITOLÓGICA.webp"
 
 year: 2016
 
-rating: 5
+rating: 2
 
 genres:
   - Mitografía

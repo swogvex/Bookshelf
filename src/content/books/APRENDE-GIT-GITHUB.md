@@ -6,7 +6,7 @@ cover: "/books/APRENDE-GIT-GITHUB.webp"
 
 year: 2024
 
-rating: 5
+rating: 1
 
 genres:
   - Técnico

@@ -3,19 +3,32 @@ const { book } = Astro.props;
 ---
 
 <article class="book-card" data-book-id={book.id}>
-  <div class="book">
-    <div class="book-cover">
-      <img src={book.data.cover} alt={book.data.title} class="cover-img" />
-      <div class="effect"></div>
-      <div class="light"></div>
+  <button class="book-link" data-book-slug={book.id}>
+    <div class="book">
+      <div class="book-cover">
+        <img src={book.data.cover} alt={book.data.title} class="cover-img" />
+        <div class="effect"></div>
+        <div class="light"></div>
+      </div>
+      <div class="book-inside"></div>
     </div>
-    <div class="book-inside"></div>
-  </div>
+  </button>
 </article>
 
 <style>
   .book-card {
     position: relative;
+  }
+
+  .book-link {
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
   }
 
   /* Igual que el original: contenedor relativo con tamaño propio.

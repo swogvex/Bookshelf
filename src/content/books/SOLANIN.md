@@ -6,7 +6,7 @@ cover: "/books/SOLANIN.webp"
 
 year: 2014
 
-rating: 5
+rating: 4
 
 genres:
   - Romance

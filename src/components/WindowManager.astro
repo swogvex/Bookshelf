@@ -1,58 +1,399 @@
 <div id="window-manager"></div>
 
-<style>
+<style is:global>
   #window-manager {
     position: fixed;
     inset: 0;
-
-    pointer-events: none;
-
     z-index: 1000;
+    pointer-events: none;
   }
 
   .book-window {
     position: absolute;
-
-    width: min(700px, 90vw);
-
+    width: min(680px, calc(100vw - 16px));
     background: var(--bg);
-
-    border: 1px solid var(--border);
-
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-
+    border: 1px solid var(--text);
+    box-shadow: 8px 8px 0 var(--text);
+    color: var(--text);
     pointer-events: auto;
+    overflow: hidden;
   }
 
   .book-window__header {
     display: flex;
-
-    justify-content: space-between;
     align-items: center;
-
-    padding: 1rem;
-
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 1rem;
     border-bottom: 1px solid var(--border);
-
     cursor: move;
+    user-select: none;
+    touch-action: none;
+  }
+
+  .book-window__nav,
+  .book-window__actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  .book-window button {
+    padding: 0.15rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .book-window button svg {
+    display: block;
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .book-window button:hover {
+    opacity: 0.55;
   }
 
   .book-window__content {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 2rem;
     padding: 1.5rem;
   }
 
-  .book-window__close {
-    background: none;
-    border: none;
-
-    cursor: pointer;
-
-    color: inherit;
-    font-size: 1rem;
+  .book-window__cover-frame {
+    position: relative;
+    align-self: start;
+    width: 100%;
+    background: #111;
+    border-radius: 3px;
+    overflow: hidden;
   }
 
-  .book-window img {
-    width: 140px;
-    border-radius: 6px;
+  .book-window__cover-frame::before,
+  .book-window__cover-frame::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .book-window__cover-frame::before {
+    top: 0;
+    left: 10px;
+    width: 20px;
+    height: 100%;
+    border-left: 2px solid rgba(0, 0, 0, 0.06);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+
+  .book-window__cover-frame::after {
+    top: 0;
+    right: 0;
+    width: 90%;
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 100%
+    );
+    opacity: 0.1;
+  }
+
+  .book-window__cover {
+    position: relative;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .book-window__author {
+    margin: 0;
+    opacity: 0.7;
+    font-size: 0.95rem;
+  }
+
+  .book-window__title {
+    margin: 0.75rem 0 1rem;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    line-height: 1.1;
+  }
+
+  .book-window__meta {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 1rem;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+
+  .book-window__genres {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    z-index: 2;
+    padding: 0.5rem 0.75rem;
+    background: var(--text);
+    color: var(--bg);
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .book-window__meta span:last-child:hover .book-window__genres {
+    display: block;
+  }
+
+  .rating-star {
+    width: 0.9rem;
+    height: 0.9rem;
+    vertical-align: -0.1rem;
+  }
+
+  .rating-star--filled {
+    fill: currentColor;
+  }
+
+  .book-window__body {
+    margin: 1.5rem 0 0;
+    line-height: 1.5;
+    white-space: pre-line;
+  }
+
+  @media (max-width: 600px) {
+    .book-window {
+      box-shadow: 4px 4px 0 var(--text);
+    }
+
+    .book-window__header {
+      cursor: default;
+      touch-action: auto;
+    }
+
+    .book-window__content {
+      grid-template-columns: 100px minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .book-window__title {
+      margin-top: 0.5rem;
+      font-size: 1.35rem;
+    }
   }
 </style>
+
+<script>
+  // @ts-nocheck
+  import { ArrowLeft, ArrowRight, Share2, Star, X, createIcons } from "lucide";
+
+  const manager = document.getElementById("window-manager");
+  const openWindows = new Map();
+  let nextZIndex = 1;
+  let offsetCount = 0;
+
+  function getBooks() {
+    return window.booksData || [];
+  }
+
+  function requiredElement(parent, selector) {
+    const element = parent.querySelector(selector);
+    if (!element) throw new Error(`Missing window element: ${selector}`);
+    return element;
+  }
+
+  function renderIcons(windowElement) {
+    createIcons({
+      root: windowElement,
+      icons: { ArrowLeft, ArrowRight, Share2, Star, X },
+      attrs: { "stroke-width": 1.5 },
+    });
+  }
+
+  function focusWindow(windowElement) {
+    windowElement.style.zIndex = String(nextZIndex++);
+  }
+
+  function renderBook(windowElement, book) {
+    const genres = book.genres || [];
+    const stars = Array.from(
+      { length: 5 },
+      (_, index) =>
+        `<i data-lucide="star" class="rating-star${index < book.rating ? " rating-star--filled" : ""}"></i>`,
+    ).join("");
+    const category = genres[0] || "";
+    const extraGenres = genres.length > 1 ? `+${genres.length - 1}` : "";
+
+    const cover = requiredElement(windowElement, ".book-window__cover");
+    cover.src = book.cover;
+    cover.alt = book.title;
+    requiredElement(windowElement, ".book-window__author").textContent =
+      book.author;
+    requiredElement(windowElement, ".book-window__title").textContent =
+      book.title;
+    requiredElement(windowElement, ".book-window__body").textContent =
+      book.body;
+    requiredElement(windowElement, ".book-window__meta").innerHTML = `
+			<span>${stars}</span>
+			<span>${book.finishedAt}</span>
+			<span>
+				${category} ${extraGenres}
+				<span class="book-window__genres">${genres.join(", ")}</span>
+			</span>
+		`;
+    windowElement.dataset.slug = book.id;
+  }
+
+  function changeBook(windowElement, direction) {
+    const books = getBooks();
+    const currentIndex = books.findIndex(
+      (book) => book.id === windowElement.dataset.slug,
+    );
+    const nextBook = books[currentIndex + direction];
+    if (!nextBook) return;
+
+    openWindows.delete(windowElement.dataset.slug);
+    renderBook(windowElement, nextBook);
+    renderIcons(windowElement);
+    openWindows.set(nextBook.id, windowElement);
+  }
+
+  function makeDraggable(windowElement) {
+    const header = requiredElement(windowElement, ".book-window__header");
+
+    header.addEventListener("pointerdown", (event) => {
+      if (event.target instanceof Element && event.target.closest("button")) {
+        return;
+      }
+
+      event.preventDefault();
+      focusWindow(windowElement);
+      header.setPointerCapture(event.pointerId);
+
+      const startX = event.clientX;
+      const startY = event.clientY;
+      const startLeft = windowElement.offsetLeft;
+      const startTop = windowElement.offsetTop;
+
+      function moveWindow(moveEvent) {
+        windowElement.style.left = `${startLeft + moveEvent.clientX - startX}px`;
+        windowElement.style.top = `${startTop + moveEvent.clientY - startY}px`;
+      }
+
+      function stopMoving() {
+        header.removeEventListener("pointermove", moveWindow);
+        header.removeEventListener("pointerup", stopMoving);
+        header.removeEventListener("pointercancel", stopMoving);
+      }
+
+      header.addEventListener("pointermove", moveWindow);
+      header.addEventListener("pointerup", stopMoving, { once: true });
+      header.addEventListener("pointercancel", stopMoving, { once: true });
+    });
+  }
+
+  function openBook(slug) {
+    if (!manager) return;
+
+    if (openWindows.has(slug)) {
+      focusWindow(openWindows.get(slug));
+      return;
+    }
+
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      openWindows.forEach((windowElement) => windowElement.remove());
+      openWindows.clear();
+    }
+
+    const book = getBooks().find((item) => item.id === slug);
+    if (!book) return;
+
+    const windowElement = document.createElement("section");
+    windowElement.className = "book-window";
+    const offset = (offsetCount++ % 5) * 40;
+    const maxLeft = Math.max(8, window.innerWidth - 696);
+    const maxTop = Math.max(8, window.innerHeight - 500);
+    windowElement.style.left = `${Math.min(120 + offset, maxLeft)}px`;
+    windowElement.style.top = `${Math.min(120 + offset, maxTop)}px`;
+    windowElement.innerHTML = `
+			<div class="book-window__header">
+				<div class="book-window__nav">
+            <button class="book-window__prev" aria-label="Previous book"><i data-lucide="arrow-left"></i></button>
+            <button class="book-window__next" aria-label="Next book"><i data-lucide="arrow-right"></i></button>
+				</div>
+				<div class="book-window__actions">
+            <button class="book-window__share" aria-label="Copy book link"><i data-lucide="share-2"></i></button>
+            <button class="book-window__close" aria-label="Close window"><i data-lucide="x"></i></button>
+				</div>
+			</div>
+			<div class="book-window__content">
+        <div class="book-window__cover-frame">
+          <img class="book-window__cover" src="" alt="" />
+        </div>
+				<div>
+					<p class="book-window__author"></p>
+					<h2 class="book-window__title"></h2>
+					<p class="book-window__meta"></p>
+					<hr />
+					<p class="book-window__body"></p>
+				</div>
+			</div>
+		`;
+
+    renderBook(windowElement, book);
+    manager.appendChild(windowElement);
+    renderIcons(windowElement);
+    openWindows.set(slug, windowElement);
+    focusWindow(windowElement);
+    if (!isMobile) makeDraggable(windowElement);
+
+    requiredElement(windowElement, ".book-window__close").addEventListener(
+      "click",
+      () => {
+        openWindows.delete(windowElement.dataset.slug);
+        windowElement.remove();
+      },
+    );
+    requiredElement(windowElement, ".book-window__prev").addEventListener(
+      "click",
+      () => changeBook(windowElement, -1),
+    );
+    requiredElement(windowElement, ".book-window__next").addEventListener(
+      "click",
+      () => changeBook(windowElement, 1),
+    );
+    requiredElement(windowElement, ".book-window__share").addEventListener(
+      "click",
+      async () => {
+        await navigator.clipboard.writeText(
+          `${location.origin}/books#${windowElement.dataset.slug}`,
+        );
+      },
+    );
+    windowElement.addEventListener("pointerdown", () =>
+      focusWindow(windowElement),
+    );
+  }
+
+  document.addEventListener("click", (event) => {
+    const trigger =
+      event.target instanceof Element
+        ? event.target.closest("[data-book-slug]")
+        : null;
+    if (trigger) openBook(trigger.getAttribute("data-book-slug"));
+  });
+</script>
