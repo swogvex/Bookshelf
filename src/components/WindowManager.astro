@@ -175,7 +175,14 @@
 
   @media (max-width: 600px) {
     .book-window {
+      position: absolute;
+      width: calc(100vw - 16px);
+      max-height: calc(100vh - 16px);
       box-shadow: 4px 4px 0 var(--text);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
     }
 
     .book-window__header {
@@ -184,9 +191,13 @@
     }
 
     .book-window__content {
-      grid-template-columns: 100px minmax(0, 1fr);
-      gap: 1rem;
+      display: block;
       padding: 1rem;
+    }
+
+    .book-window__cover-frame {
+      width: min(155px, 48vw);
+      margin: 0 auto 1.5rem;
     }
 
     .book-window__title {
@@ -328,7 +339,13 @@
     const maxLeft = Math.max(8, window.innerWidth - 696);
     const maxTop = Math.max(8, window.innerHeight - 500);
     windowElement.style.left = `${Math.min(120 + offset, maxLeft)}px`;
-    windowElement.style.top = `${Math.min(120 + offset, maxTop)}px`;
+    const top = isMobile
+      ? Math.min(120 + offset, Math.max(20, window.innerHeight * 0.12))
+      : Math.min(120 + offset, maxTop);
+    windowElement.style.top = `${top}px`;
+    if (isMobile) {
+      windowElement.style.maxHeight = `calc(100vh - ${top + 8}px)`;
+    }
     windowElement.innerHTML = `
 			<div class="book-window__header">
 				<div class="book-window__nav">

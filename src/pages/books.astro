@@ -12,9 +12,55 @@ const booksData = books.map((book) => ({
   ...book.data,
   body: book.body,
 }));
+const years = [...new Set(books.map((book) => book.data.year))].sort(
+  (a, b) => b - a,
+);
+const genres = [
+  ...new Set(books.flatMap((book) => book.data.genres)),
+].sort((a, b) => a.localeCompare(b));
 ---
 
 <Layout title="Books">
+  <div class="mobile-filter-bar">
+    <button class="mobile-filter-toggle" type="button" data-filter-toggle>
+      Filters
+    </button>
+    <button class="mobile-filter-reset" type="button" data-filter-reset hidden>
+      Reset
+    </button>
+  </div>
+
+  <section class="book-filters" aria-label="Book filters">
+    <button class="mobile-filter-close" type="button" data-filter-close aria-label="Close filters">×</button>
+    <div class="book-filter">
+      <h2>Sort</h2>
+      <button class="filter-option is-active" data-sort="recent">Recently finished</button>
+      <button class="filter-option" data-sort="rating">Highest rated</button>
+      <button class="filter-option" data-sort="title">Title A-Z</button>
+    </div>
+
+    <div class="book-filter">
+      <h2>Year</h2>
+      <button class="filter-option is-active" data-year="all">All years</button>
+      {years.map((year) => <button class="filter-option" data-year={year}>{year}</button>)}
+    </div>
+
+    <div class="book-filter">
+      <h2>Rating</h2>
+      <button class="filter-option is-active" data-rating="all">Any</button>
+      {Array.from({ length: 5 }, (_, index) => {
+        const rating = 5 - index;
+        return <button class="filter-option rating-option" data-rating={rating}>{"★".repeat(rating) + "☆".repeat(5 - rating)}</button>;
+      })}
+    </div>
+
+    <div class="book-filter">
+      <h2>Genres</h2>
+      <button class="filter-option is-active" data-genre="all">All</button>
+      {genres.map((genre) => <button class="filter-option" data-genre={genre}>{genre}</button>)}
+    </div>
+  </section>
+
   <section class="books-grid">
     {books.map((book) => <BookCard book={book} />)}
   </section>
@@ -22,21 +68,220 @@ const booksData = books.map((book) => ({
 
   <script define:vars={{ booksData }}>
     window.booksData = booksData;
+
+    const grid = document.querySelector(".books-grid");
+    const cards = [...document.querySelectorAll(".book-card")];
+    let sort = "recent";
+    let year = "all";
+    let rating = "all";
+    let genre = "all";
+    const filters = document.querySelector(".book-filters");
+    const filterToggle = document.querySelector("[data-filter-toggle]");
+    const filterReset = document.querySelector("[data-filter-reset]");
+
+    function updateFilterUI() {
+      const activeCount = [year !== "all", rating !== "all", genre !== "all", sort !== "recent"].filter(Boolean).length;
+      filterToggle.textContent = activeCount ? `Filters (${activeCount})` : "Filters";
+      filterReset.hidden = activeCount === 0;
+    }
+
+    function updateBooks() {
+      const visibleCards = cards.filter((card) => {
+        const book = booksData.find((item) => item.id === card.dataset.bookId);
+        return (
+          book &&
+          (year === "all" || String(book.year) === year) &&
+          (rating === "all" || book.rating === Number(rating)) &&
+          (genre === "all" || book.genres.includes(genre))
+        );
+      });
+
+      visibleCards.sort((first, second) => {
+        const firstBook = booksData.find((item) => item.id === first.dataset.bookId);
+        const secondBook = booksData.find((item) => item.id === second.dataset.bookId);
+        if (sort === "rating") return secondBook.rating - firstBook.rating;
+        if (sort === "title") return firstBook.title.localeCompare(secondBook.title);
+        return secondBook.finishedAt.localeCompare(firstBook.finishedAt);
+      });
+
+      cards.forEach((card) => {
+        card.hidden = !visibleCards.includes(card);
+      });
+      visibleCards.forEach((card) => grid.appendChild(card));
+    }
+
+    document.querySelectorAll("[data-sort]").forEach((button) => {
+      button.addEventListener("click", () => {
+        sort = button.dataset.sort;
+        document.querySelectorAll("[data-sort]").forEach((option) => option.classList.toggle("is-active", option === button));
+        updateFilterUI();
+        updateBooks();
+      });
+    });
+    document.querySelectorAll("[data-year]").forEach((button) => {
+      button.addEventListener("click", () => {
+        year = button.dataset.year;
+        document.querySelectorAll("[data-year]").forEach((option) => option.classList.toggle("is-active", option === button));
+        updateFilterUI();
+        updateBooks();
+      });
+    });
+    document.querySelectorAll("[data-rating]").forEach((button) => {
+      button.addEventListener("click", () => {
+        rating = button.dataset.rating;
+        document.querySelectorAll("[data-rating]").forEach((option) => option.classList.toggle("is-active", option === button));
+        updateFilterUI();
+        updateBooks();
+      });
+    });
+    document.querySelectorAll("[data-genre]").forEach((button) => {
+      button.addEventListener("click", () => {
+        genre = button.dataset.genre;
+        document.querySelectorAll("[data-genre]").forEach((option) => option.classList.toggle("is-active", option === button));
+        updateFilterUI();
+        updateBooks();
+      });
+    });
+
+    filterToggle.addEventListener("click", () => filters.classList.add("is-open"));
+    document.querySelector("[data-filter-close]").addEventListener("click", () => filters.classList.remove("is-open"));
+    filterReset.addEventListener("click", () => {
+      sort = "recent";
+      year = "all";
+      rating = "all";
+      genre = "all";
+      document.querySelectorAll(".filter-option").forEach((option) => option.classList.toggle("is-active", option.dataset.sort === "recent" || option.dataset.year === "all" || option.dataset.rating === "all" || option.dataset.genre === "all"));
+      updateFilterUI();
+      updateBooks();
+    });
+
+    updateFilterUI();
+    updateBooks();
   </script>
 </Layout>
 
-<style>
+<style is:global>
+  .mobile-filter-bar,
+  .mobile-filter-close {
+    display: none;
+  }
+
+  .book-filters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    padding: 1.5rem 0 2rem;
+    color: var(--text);
+  }
+
+  .book-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 0.5rem;
+  }
+
+  .book-filter h2 {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .filter-option {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+  }
+
+  .filter-option.is-active,
+  .filter-option:hover {
+    text-decoration: underline;
+  }
+
+  .rating-option {
+    color: #77735f;
+    letter-spacing: 0.05em;
+  }
+
+  .books-grid .book-card[hidden] {
+    display: none;
+  }
+
   .books-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, 120px);
     gap: clamp(1rem, 4vw, 2rem);
+    justify-content: center;
     padding-top: 5rem;
   }
 
-  @media (max-width: 480px) {
-    .books-grid {
+  @media (max-width: 767px) {
+    .book-filters {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    .books-grid {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 160px));
       gap: 1rem;
     }
+  }
+
+  @media (max-width: 480px) {
+    .mobile-filter-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 1rem 0 0;
+    }
+
+    .mobile-filter-toggle,
+    .mobile-filter-reset,
+    .mobile-filter-close {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: inherit;
+      cursor: pointer;
+      font: inherit;
+      text-decoration: underline;
+    }
+
+    .book-filters {
+      display: none;
+      position: fixed;
+      inset: 0.25rem 0.25rem auto;
+      z-index: 1100;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-height: calc(100vh - 0.5rem);
+      overflow-y: auto;
+      padding: 1.5rem 1.25rem 2rem;
+      background: var(--bg);
+      border: 1px solid var(--text);
+      box-shadow: 6px 6px 0 var(--text);
+    }
+
+    .book-filters.is-open {
+      display: grid;
+    }
+
+    .mobile-filter-close {
+      display: block;
+      position: absolute;
+      top: 0.5rem;
+      right: 0.75rem;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+
+    .book-filter:first-of-type {
+      margin-top: 1rem;
+    }
+
   }
 </style>
