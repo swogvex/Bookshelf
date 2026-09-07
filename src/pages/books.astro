@@ -15,9 +15,9 @@ const booksData = books.map((book) => ({
 const years = [...new Set(books.map((book) => book.data.year))].sort(
   (a, b) => b - a,
 );
-const genres = [
-  ...new Set(books.flatMap((book) => book.data.genres)),
-].sort((a, b) => a.localeCompare(b));
+const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
+  (a, b) => a.localeCompare(b),
+);
 ---
 
 <Layout title="Books">
@@ -31,132 +31,215 @@ const genres = [
   </div>
 
   <section class="book-filters" aria-label="Book filters">
-    <button class="mobile-filter-close" type="button" data-filter-close aria-label="Close filters">×</button>
-    <div class="book-filter">
-      <h2>Sort</h2>
-      <button class="filter-option is-active" data-sort="recent">Recently finished</button>
-      <button class="filter-option" data-sort="rating">Highest rated</button>
-      <button class="filter-option" data-sort="title">Title A-Z</button>
-    </div>
+    <button
+      class="mobile-filter-close"
+      type="button"
+      data-filter-close
+      aria-label="Close filters">×</button
+    >
+    <div class="book-filters__scroll">
+      <div class="book-filter">
+        <h2>Sort</h2>
+        <button class="filter-option is-active" data-sort="recent"
+          >Recently finished</button
+        >
+        <button class="filter-option" data-sort="rating">Highest rated</button>
+        <button class="filter-option" data-sort="title">Title A-Z</button>
+      </div>
 
-    <div class="book-filter">
-      <h2>Year</h2>
-      <button class="filter-option is-active" data-year="all">All years</button>
-      {years.map((year) => <button class="filter-option" data-year={year}>{year}</button>)}
-    </div>
+      <div class="book-filter">
+        <h2>Year</h2>
+        <button class="filter-option is-active" data-year="all"
+          >All years</button
+        >
+        {
+          years.map((year) => (
+            <button class="filter-option" data-year={year}>
+              {year}
+            </button>
+          ))
+        }
+      </div>
 
-    <div class="book-filter">
-      <h2>Rating</h2>
-      <button class="filter-option is-active" data-rating="all">Any</button>
-      {Array.from({ length: 5 }, (_, index) => {
-        const rating = 5 - index;
-        return <button class="filter-option rating-option" data-rating={rating}>{"★".repeat(rating) + "☆".repeat(5 - rating)}</button>;
-      })}
-    </div>
+      <div class="book-filter">
+        <h2>Rating</h2>
+        <button class="filter-option is-active" data-rating="all">Any</button>
+        {
+          Array.from({ length: 5 }, (_, index) => {
+            const rating = 5 - index;
+            return (
+              <button class="filter-option rating-option" data-rating={rating}>
+                {"★".repeat(rating) + "☆".repeat(5 - rating)}
+              </button>
+            );
+          })
+        }
+      </div>
 
-    <div class="book-filter">
-      <h2>Genres</h2>
-      <button class="filter-option is-active" data-genre="all">All</button>
-      {genres.map((genre) => <button class="filter-option" data-genre={genre}>{genre}</button>)}
+      <div class="book-filter">
+        <h2>Genres</h2>
+        <button class="filter-option is-active" data-genre="all">All</button>
+        {
+          genres.map((genre) => (
+            <button class="filter-option" data-genre={genre}>
+              {genre}
+            </button>
+          ))
+        }
+      </div>
     </div>
   </section>
 
   <section class="books-grid">
-    {books.map((book) => <BookCard book={book} />)}
+    {
+      books.map((book, index) => (
+        <BookCard book={book} loading={index < 5 ? "eager" : "lazy"} />
+      ))
+    }
   </section>
   <WindowManager />
 
   <script define:vars={{ booksData }}>
-    window.booksData = booksData;
+    function initializeBooksPage() {
+      window.booksData = booksData;
 
-    const grid = document.querySelector(".books-grid");
-    const cards = [...document.querySelectorAll(".book-card")];
-    let sort = "recent";
-    let year = "all";
-    let rating = "all";
-    let genre = "all";
-    const filters = document.querySelector(".book-filters");
-    const filterToggle = document.querySelector("[data-filter-toggle]");
-    const filterReset = document.querySelector("[data-filter-reset]");
+      const grid = document.querySelector(".books-grid");
+      if (!grid) return;
+      const cards = [...document.querySelectorAll(".book-card")];
+      let sort = "recent";
+      let year = "all";
+      let rating = "all";
+      let genre = "all";
+      const filters = document.querySelector(".book-filters");
+      const filterToggle = document.querySelector("[data-filter-toggle]");
+      const filterReset = document.querySelector("[data-filter-reset]");
 
-    function updateFilterUI() {
-      const activeCount = [year !== "all", rating !== "all", genre !== "all", sort !== "recent"].filter(Boolean).length;
-      filterToggle.textContent = activeCount ? `Filters (${activeCount})` : "Filters";
-      filterReset.hidden = activeCount === 0;
-    }
+      function updateFilterUI() {
+        const activeCount = [
+          year !== "all",
+          rating !== "all",
+          genre !== "all",
+          sort !== "recent",
+        ].filter(Boolean).length;
+        filterToggle.textContent = activeCount
+          ? `Filters (${activeCount})`
+          : "Filters";
+        filterReset.hidden = activeCount === 0;
+      }
 
-    function updateBooks() {
-      const visibleCards = cards.filter((card) => {
-        const book = booksData.find((item) => item.id === card.dataset.bookId);
-        return (
-          book &&
-          (year === "all" || String(book.year) === year) &&
-          (rating === "all" || book.rating === Number(rating)) &&
-          (genre === "all" || book.genres.includes(genre))
-        );
+      function updateBooks() {
+        const visibleCards = cards.filter((card) => {
+          const book = booksData.find(
+            (item) => item.id === card.dataset.bookId,
+          );
+          return (
+            book &&
+            (year === "all" || String(book.year) === year) &&
+            (rating === "all" || book.rating === Number(rating)) &&
+            (genre === "all" || book.genres.includes(genre))
+          );
+        });
+
+        visibleCards.sort((first, second) => {
+          const firstBook = booksData.find(
+            (item) => item.id === first.dataset.bookId,
+          );
+          const secondBook = booksData.find(
+            (item) => item.id === second.dataset.bookId,
+          );
+          if (sort === "rating") return secondBook.rating - firstBook.rating;
+          if (sort === "title")
+            return firstBook.title.localeCompare(secondBook.title);
+          return secondBook.finishedAt.localeCompare(firstBook.finishedAt);
+        });
+
+        cards.forEach((card) => {
+          card.hidden = !visibleCards.includes(card);
+        });
+        visibleCards.forEach((card) => grid.appendChild(card));
+      }
+
+      document.querySelectorAll("[data-sort]").forEach((button) => {
+        button.addEventListener("click", () => {
+          sort = button.dataset.sort;
+          document
+            .querySelectorAll("[data-sort]")
+            .forEach((option) =>
+              option.classList.toggle("is-active", option === button),
+            );
+          updateFilterUI();
+          updateBooks();
+        });
+      });
+      document.querySelectorAll("[data-year]").forEach((button) => {
+        button.addEventListener("click", () => {
+          year = button.dataset.year;
+          document
+            .querySelectorAll("[data-year]")
+            .forEach((option) =>
+              option.classList.toggle("is-active", option === button),
+            );
+          updateFilterUI();
+          updateBooks();
+        });
+      });
+      document.querySelectorAll("[data-rating]").forEach((button) => {
+        button.addEventListener("click", () => {
+          rating = button.dataset.rating;
+          document
+            .querySelectorAll("[data-rating]")
+            .forEach((option) =>
+              option.classList.toggle("is-active", option === button),
+            );
+          updateFilterUI();
+          updateBooks();
+        });
+      });
+      document.querySelectorAll("[data-genre]").forEach((button) => {
+        button.addEventListener("click", () => {
+          genre = button.dataset.genre;
+          document
+            .querySelectorAll("[data-genre]")
+            .forEach((option) =>
+              option.classList.toggle("is-active", option === button),
+            );
+          updateFilterUI();
+          updateBooks();
+        });
       });
 
-      visibleCards.sort((first, second) => {
-        const firstBook = booksData.find((item) => item.id === first.dataset.bookId);
-        const secondBook = booksData.find((item) => item.id === second.dataset.bookId);
-        if (sort === "rating") return secondBook.rating - firstBook.rating;
-        if (sort === "title") return firstBook.title.localeCompare(secondBook.title);
-        return secondBook.finishedAt.localeCompare(firstBook.finishedAt);
-      });
-
-      cards.forEach((card) => {
-        card.hidden = !visibleCards.includes(card);
-      });
-      visibleCards.forEach((card) => grid.appendChild(card));
-    }
-
-    document.querySelectorAll("[data-sort]").forEach((button) => {
-      button.addEventListener("click", () => {
-        sort = button.dataset.sort;
-        document.querySelectorAll("[data-sort]").forEach((option) => option.classList.toggle("is-active", option === button));
+      filterToggle.addEventListener("click", () =>
+        filters.classList.add("is-open"),
+      );
+      document
+        .querySelector("[data-filter-close]")
+        .addEventListener("click", () => filters.classList.remove("is-open"));
+      filterReset.addEventListener("click", () => {
+        sort = "recent";
+        year = "all";
+        rating = "all";
+        genre = "all";
+        document
+          .querySelectorAll(".filter-option")
+          .forEach((option) =>
+            option.classList.toggle(
+              "is-active",
+              option.dataset.sort === "recent" ||
+                option.dataset.year === "all" ||
+                option.dataset.rating === "all" ||
+                option.dataset.genre === "all",
+            ),
+          );
         updateFilterUI();
         updateBooks();
       });
-    });
-    document.querySelectorAll("[data-year]").forEach((button) => {
-      button.addEventListener("click", () => {
-        year = button.dataset.year;
-        document.querySelectorAll("[data-year]").forEach((option) => option.classList.toggle("is-active", option === button));
-        updateFilterUI();
-        updateBooks();
-      });
-    });
-    document.querySelectorAll("[data-rating]").forEach((button) => {
-      button.addEventListener("click", () => {
-        rating = button.dataset.rating;
-        document.querySelectorAll("[data-rating]").forEach((option) => option.classList.toggle("is-active", option === button));
-        updateFilterUI();
-        updateBooks();
-      });
-    });
-    document.querySelectorAll("[data-genre]").forEach((button) => {
-      button.addEventListener("click", () => {
-        genre = button.dataset.genre;
-        document.querySelectorAll("[data-genre]").forEach((option) => option.classList.toggle("is-active", option === button));
-        updateFilterUI();
-        updateBooks();
-      });
-    });
 
-    filterToggle.addEventListener("click", () => filters.classList.add("is-open"));
-    document.querySelector("[data-filter-close]").addEventListener("click", () => filters.classList.remove("is-open"));
-    filterReset.addEventListener("click", () => {
-      sort = "recent";
-      year = "all";
-      rating = "all";
-      genre = "all";
-      document.querySelectorAll(".filter-option").forEach((option) => option.classList.toggle("is-active", option.dataset.sort === "recent" || option.dataset.year === "all" || option.dataset.rating === "all" || option.dataset.genre === "all"));
       updateFilterUI();
       updateBooks();
-    });
+    }
 
-    updateFilterUI();
-    updateBooks();
+    initializeBooksPage();
+    document.addEventListener("astro:page-load", initializeBooksPage);
   </script>
 </Layout>
 
@@ -172,6 +255,10 @@ const genres = [
     gap: 2.5rem;
     padding: 1.5rem 0 2rem;
     color: var(--text);
+  }
+
+  .book-filters__scroll {
+    display: contents;
   }
 
   .book-filter {
@@ -219,6 +306,18 @@ const genres = [
     padding-top: 5rem;
   }
 
+  @media (min-width: 768px) {
+    .book-filters {
+      width: min(
+        calc(5 * 120px + 4 * clamp(1rem, 4vw, 2rem)),
+        calc(100% - 2rem)
+      );
+      grid-template-columns: repeat(4, max-content);
+      justify-content: space-between;
+      margin-inline: auto;
+    }
+  }
+
   @media (max-width: 767px) {
     .book-filters {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -254,20 +353,55 @@ const genres = [
     .book-filters {
       display: none;
       position: fixed;
-      inset: 0.25rem 0.25rem auto;
+      top: 12vh;
+      right: 0.25rem;
+      left: 0.25rem;
       z-index: 1100;
       grid-template-columns: 1fr;
       gap: 1.5rem;
-      max-height: calc(100vh - 0.5rem);
-      overflow-y: auto;
+      max-height: calc(100dvh - 12vh - 0.5rem);
+      overflow: visible;
       padding: 1.5rem 1.25rem 2rem;
       background: var(--bg);
       border: 1px solid var(--text);
-      box-shadow: 6px 6px 0 var(--text);
+    }
+
+    .book-filters::before,
+    .book-filters::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      background-image: repeating-linear-gradient(
+        135deg,
+        transparent 0 3px,
+        var(--text) 3px 4px
+      );
+      pointer-events: none;
+    }
+
+    .book-filters::before {
+      top: 0;
+      left: 100%;
+      width: 8px;
+      height: calc(100% + 8px);
+    }
+
+    .book-filters::after {
+      top: 100%;
+      left: 0;
+      width: calc(100% + 8px);
+      height: 8px;
+    }
+
+    .book-filters__scroll {
+      display: block;
+      max-height: calc(100dvh - 0.5rem);
+      overflow: auto;
+      overscroll-behavior: contain;
     }
 
     .book-filters.is-open {
-      display: grid;
+      display: block;
     }
 
     .mobile-filter-close {
@@ -282,6 +416,5 @@ const genres = [
     .book-filter:first-of-type {
       margin-top: 1rem;
     }
-
   }
 </style>

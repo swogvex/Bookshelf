@@ -9,6 +9,8 @@
 
   html {
       color-scheme: light;
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
       transition: background-color 0.35s ease, color 0.35s ease;
   }
 
@@ -35,7 +37,7 @@
   body {
       background: var(--bg);
       color: var(--text);
-      font-family: Georgia, serif;
+      font-family: monospace;
       transition: background-color 0.35s ease, color 0.35s ease;
   }
 

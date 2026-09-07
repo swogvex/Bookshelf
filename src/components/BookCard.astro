@@ -1,12 +1,21 @@
 ---
-const { book } = Astro.props;
+import { Image } from "astro:assets";
+
+const { book, loading = "lazy" } = Astro.props;
 ---
 
 <article class="book-card" data-book-id={book.id}>
   <button class="book-link" data-book-slug={book.id}>
     <div class="book">
       <div class="book-cover">
-        <img src={book.data.cover} alt={book.data.title} class="cover-img" />
+        <Image
+          src={book.data.cover}
+          alt={book.data.title}
+          class="cover-img"
+          width={225}
+          height={350}
+          loading={loading}
+        />
         <div class="effect"></div>
         <div class="light"></div>
       </div>

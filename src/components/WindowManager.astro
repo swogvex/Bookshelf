@@ -13,10 +13,36 @@
     width: min(680px, calc(100vw - 16px));
     background: var(--bg);
     border: 1px solid var(--text);
-    box-shadow: 8px 8px 0 var(--text);
     color: var(--text);
     pointer-events: auto;
-    overflow: hidden;
+    overflow: visible;
+  }
+
+  .book-window::before,
+  .book-window::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0 3px,
+      var(--text) 3px 4px
+    );
+    pointer-events: none;
+  }
+
+  .book-window::before {
+    top: 0;
+    left: 100%;
+    width: 8px;
+    height: calc(100% + 8px);
+  }
+
+  .book-window::after {
+    top: 100%;
+    left: 0;
+    width: calc(100% + 8px);
+    height: 8px;
   }
 
   .book-window__header {
@@ -29,6 +55,10 @@
     cursor: move;
     user-select: none;
     touch-action: none;
+  }
+
+  .book-window__scroll {
+    display: contents;
   }
 
   .book-window__nav,
@@ -171,16 +201,23 @@
     margin: 1.5rem 0 0;
     line-height: 1.5;
     white-space: pre-line;
+    overflow-wrap: anywhere;
   }
 
   @media (max-width: 600px) {
     .book-window {
       position: absolute;
       width: calc(100vw - 16px);
-      max-height: calc(100vh - 16px);
-      box-shadow: 4px 4px 0 var(--text);
-      overflow-x: hidden;
-      overflow-y: auto;
+      max-height: none;
+      overflow: visible;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .book-window__scroll {
+      display: block;
+      max-height: calc(100dvh - 16px);
+      overflow: auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
     }
@@ -192,6 +229,7 @@
 
     .book-window__content {
       display: block;
+      min-width: 0;
       padding: 1rem;
     }
 
@@ -211,10 +249,13 @@
   // @ts-nocheck
   import { ArrowLeft, ArrowRight, Share2, Star, X, createIcons } from "lucide";
 
-  const manager = document.getElementById("window-manager");
   const openWindows = new Map();
   let nextZIndex = 1;
   let offsetCount = 0;
+
+  function getManager() {
+    return document.getElementById("window-manager");
+  }
 
   function getBooks() {
     return window.booksData || [];
@@ -317,7 +358,10 @@
   }
 
   function openBook(slug) {
+    const manager = getManager();
     if (!manager) return;
+
+    document.querySelector(".book-filters")?.classList.remove("is-open");
 
     if (openWindows.has(slug)) {
       focusWindow(openWindows.get(slug));
@@ -344,10 +388,11 @@
       : Math.min(120 + offset, maxTop);
     windowElement.style.top = `${top}px`;
     if (isMobile) {
-      windowElement.style.maxHeight = `calc(100vh - ${top + 8}px)`;
+      windowElement.style.maxHeight = `calc(100dvh - ${top + 8}px)`;
     }
     windowElement.innerHTML = `
-			<div class="book-window__header">
+      <div class="book-window__scroll">
+      <div class="book-window__header">
 				<div class="book-window__nav">
             <button class="book-window__prev" aria-label="Previous book"><i data-lucide="arrow-left"></i></button>
             <button class="book-window__next" aria-label="Next book"><i data-lucide="arrow-right"></i></button>
@@ -369,7 +414,11 @@
 					<p class="book-window__body"></p>
 				</div>
 			</div>
+      </div>
 		`;
+
+    requiredElement(windowElement, ".book-window__scroll").style.maxHeight =
+      `calc(100dvh - ${top + 8}px)`;
 
     renderBook(windowElement, book);
     manager.appendChild(windowElement);
@@ -405,6 +454,13 @@
       focusWindow(windowElement),
     );
   }
+
+  function closeAllWindows() {
+    openWindows.forEach((windowElement) => windowElement.remove());
+    openWindows.clear();
+  }
+
+  document.addEventListener("astro:before-swap", closeAllWindows);
 
   document.addEventListener("click", (event) => {
     const trigger =
