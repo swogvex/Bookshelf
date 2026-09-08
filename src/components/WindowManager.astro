@@ -58,7 +58,12 @@
   }
 
   .book-window__scroll {
-    display: contents;
+    display: block;
+    max-height: min(480px, calc(100dvh - 96px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
   }
 
   .book-window__nav,
@@ -220,9 +225,8 @@
     }
 
     .book-window__scroll {
-      display: block;
-      max-height: calc(100dvh - 16px);
-      overflow: auto;
+      max-height: min(630px, calc(100dvh - 96px));
+      overflow-y: auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
     }
@@ -433,8 +437,9 @@
       </div>
 		`;
 
+    const maxScrollHeight = isMobile ? 630 : 480;
     requiredElement(windowElement, ".book-window__scroll").style.maxHeight =
-      `calc(100dvh - ${top + 8}px)`;
+      `min(${maxScrollHeight}px, calc(100dvh - ${top + 8}px))`;
 
     renderBook(windowElement, book);
     manager.appendChild(windowElement);

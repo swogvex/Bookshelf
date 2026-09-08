@@ -397,9 +397,11 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
 
     .book-filters__scroll {
       display: block;
-      max-height: calc(100dvh - 0.5rem);
-      overflow: auto;
+      max-height: min(630px, calc(100dvh - 96px));
+      overflow-y: auto;
       overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-gutter: stable;
     }
 
     .book-filters.is-open {
