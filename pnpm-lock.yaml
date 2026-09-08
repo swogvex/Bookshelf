@@ -17,9 +17,6 @@ importers:
       lucide:
         specifier: ^1.40.0
         version: 1.40.0
-      lucide-astro:
-        specifier: ^0.556.0
-        version: 0.556.0(astro@7.2.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(yaml@2.9.0))
       zod:
         specifier: ^4.5.4
         version: 4.5.4
@@ -1023,12 +1020,6 @@ packages:
   lru-cache@11.5.2:
     resolution: {integrity: sha512-4pfM1Ff0x50o0tQwb5ucw/RzNyD0/YJME6IVcStalZuMWxdt3sR3huStTtxz4PUmvZfRguvDejasvQ2kifR11g==}
     engines: {node: 20 || >=22}
-
-  lucide-astro@0.556.0:
-    resolution: {integrity: sha512-ugMjPb45AMfkLCaduNSbyy5NQEKvB1TxVVMmUS4S6L807PMESnX0Qp+DIKHjbyjJmPXOyLRbrzvR3YikTK7brg==}
-    deprecated: 'Deprecated: Use `@lucide/astro`'
-    peerDependencies:
-      astro: '>=2.7.1'
 
   lucide@1.40.0:
     resolution: {integrity: sha512-l6wUiJX9j2/ekAMw6mppYm6XXlgKHWRWF014Q7Y1/2N2n582Avg4gud7vdEQGuYUSo1U2qIjKLkBqA1cECJY5g==}
@@ -2280,10 +2271,6 @@ snapshots:
       lightningcss-win32-x64-msvc: 1.33.0
 
   lru-cache@11.5.2: {}
-
-  lucide-astro@0.556.0(astro@7.2.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(yaml@2.9.0)):
-    dependencies:
-      astro: 7.2.9(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)(yaml@2.9.0)
 
   lucide@1.40.0: {}
 

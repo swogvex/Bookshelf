@@ -164,6 +164,27 @@ const { book, loading = "lazy" } = Astro.props;
     opacity: 1;
   }
 
+  .book-link:active .book {
+    transform: scale(0.988);
+  }
+
+  .book-link:active .book-cover {
+    transform: perspective(2000px) rotateY(-30deg) scale(0.988);
+    box-shadow:
+      inset 4px 1px 3px #ffffff60,
+      inset 0 -1px 2px #00000080,
+      1px 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .book-link:active .book-cover::before {
+    width: 34px;
+  }
+
+  .book-link:active .book-cover::after {
+    width: 62%;
+    opacity: 0.85;
+  }
+
   /* --- .book-inside: mismo truco de "páginas" con box-shadow escalonado.
      Recoloreado para que se note más (blanco puro / beige) y termina
      en un tono oscuro (última "hoja" = contratapa negra/gris). --- */

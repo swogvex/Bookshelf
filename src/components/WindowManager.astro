@@ -11,7 +11,7 @@
   .book-window {
     position: absolute;
     width: min(680px, calc(100vw - 16px));
-    background: var(--bg);
+    background: white;
     border: 1px solid var(--text);
     color: var(--text);
     pointer-events: auto;
@@ -102,6 +102,11 @@
     background: #111;
     border-radius: 3px;
     overflow: hidden;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.24),
+      inset 0 0 0 2px rgba(0, 0, 0, 0.22),
+      0 0 0 1px rgba(0, 0, 0, 0.2),
+      2px 3px 5px rgba(0, 0, 0, 0.16);
   }
 
   .book-window__cover-frame::before,
@@ -309,11 +314,22 @@
     windowElement.dataset.slug = book.id;
   }
 
+  function getFilteredBooks() {
+    const filteredIds = Array.isArray(window.currentFilteredBookIds)
+      ? window.currentFilteredBookIds
+      : getBooks().map((book) => book.id);
+
+    const booksById = new Map(getBooks().map((book) => [book.id, book]));
+    return filteredIds.map((id) => booksById.get(id)).filter(Boolean);
+  }
+
   function changeBook(windowElement, direction) {
-    const books = getBooks();
+    const books = getFilteredBooks();
     const currentIndex = books.findIndex(
       (book) => book.id === windowElement.dataset.slug,
     );
+    if (currentIndex === -1) return;
+
     const nextBook = books[currentIndex + direction];
     if (!nextBook) return;
 

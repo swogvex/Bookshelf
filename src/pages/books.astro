@@ -128,35 +128,35 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
       }
 
       function updateBooks() {
-        const visibleCards = cards.filter((card) => {
-          const book = booksData.find(
-            (item) => item.id === card.dataset.bookId,
-          );
+        const matchingBooks = booksData.filter((book) => {
           return (
-            book &&
             (year === "all" || String(book.year) === year) &&
             (rating === "all" || book.rating === Number(rating)) &&
             (genre === "all" || book.genres.includes(genre))
           );
         });
 
-        visibleCards.sort((first, second) => {
-          const firstBook = booksData.find(
-            (item) => item.id === first.dataset.bookId,
-          );
-          const secondBook = booksData.find(
-            (item) => item.id === second.dataset.bookId,
-          );
-          if (sort === "rating") return secondBook.rating - firstBook.rating;
-          if (sort === "title")
-            return firstBook.title.localeCompare(secondBook.title);
-          return secondBook.finishedAt.localeCompare(firstBook.finishedAt);
+        matchingBooks.sort((first, second) => {
+          if (sort === "rating") return second.rating - first.rating;
+          if (sort === "title") return first.title.localeCompare(second.title);
+          return second.finishedAt.localeCompare(first.finishedAt);
         });
 
+        const visibleIds = matchingBooks.map((book) => book.id);
+        window.currentFilteredBookIds = visibleIds;
+
+        const cardById = new Map(
+          cards.map((card) => [card.dataset.bookId, card]),
+        );
         cards.forEach((card) => {
-          card.hidden = !visibleCards.includes(card);
+          const bookVisible = visibleIds.includes(card.dataset.bookId);
+          card.hidden = !bookVisible;
         });
-        visibleCards.forEach((card) => grid.appendChild(card));
+
+        visibleIds.forEach((id) => {
+          const card = cardById.get(id);
+          if (card) grid.appendChild(card);
+        });
       }
 
       document.querySelectorAll("[data-sort]").forEach((button) => {
@@ -266,6 +266,7 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
     flex-direction: column;
     align-items: flex-start;
     padding-top: 0.5rem;
+    gap: 0.2rem;
   }
 
   .book-filter h2 {
@@ -281,6 +282,7 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
     color: inherit;
     cursor: pointer;
     font: inherit;
+    line-height: 1.55;
     text-align: left;
   }
 
@@ -362,7 +364,7 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
       max-height: calc(100dvh - 12vh - 0.5rem);
       overflow: visible;
       padding: 1.5rem 1.25rem 2rem;
-      background: var(--bg);
+      background: white;
       border: 1px solid var(--text);
     }
 

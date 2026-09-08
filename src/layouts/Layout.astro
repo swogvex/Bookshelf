@@ -1,6 +1,5 @@
 ---
 import { ClientRouter } from "astro:transitions";
-import ThemeToggle from "../components/ThemeToggle.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
 
 const { title = "Bookshelf" } = Astro.props;
@@ -23,8 +22,6 @@ const isWritings = pathname.startsWith("/writings");
     <header class="site-header">
       <div class="site-header__top">
         <h1>Bookshelf</h1>
-
-        <ThemeToggle />
       </div>
 
       <nav class="site-nav" aria-label="Main navigation">

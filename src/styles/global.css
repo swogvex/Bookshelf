@@ -1,27 +1,13 @@
   :root {
-      --bg: #f8f7f4;
+      --bg: #F8EFB5;
       --text: #111111;
       --border: rgba(17, 17, 17, 0.08);
-      --panel: rgba(255, 255, 255, 0.5);
-      --panel-border: rgba(17, 17, 17, 0.08);
-      --shadow: rgba(17, 17, 17, 0.1);
   }
 
   html {
       color-scheme: light;
       overflow-y: scroll;
       scrollbar-gutter: stable;
-      transition: background-color 0.35s ease, color 0.35s ease;
-  }
-
-  html.dark {
-      color-scheme: dark;
-      --bg: #0f0f10;
-      --text: #fafafa;
-      --border: rgba(255, 255, 255, 0.08);
-      --panel: rgba(30, 30, 32, 0.7);
-      --panel-border: rgba(255, 255, 255, 0.08);
-      --shadow: rgba(0, 0, 0, 0.25);
   }
 
   * {
@@ -37,8 +23,7 @@
   body {
       background: var(--bg);
       color: var(--text);
-      font-family: monospace;
-      transition: background-color 0.35s ease, color 0.35s ease;
+      font-family: "Source Serif 4", "Iowan Old Style", "Times New Roman", serif;
   }
 
   .site-header {
@@ -104,68 +89,4 @@
       max-width: 900px;
       margin: 0 auto;
       padding: 0 2rem 6rem;
-  }
-
-  .theme-toggle {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.5rem;
-      appearance: none;
-      border: 1px solid var(--panel-border);
-      border-radius: 999px;
-      background: var(--panel);
-      box-shadow: 0 8px 22px var(--shadow);
-      width: 2.5rem;
-      height: 2.5rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease,
-          background-color 0.35s ease,
-          border-color 0.35s ease;
-  }
-
-  .theme-toggle:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 26px var(--shadow);
-  }
-
-  .theme-toggle:focus-visible {
-      outline: 2px solid var(--text);
-      outline-offset: 3px;
-  }
-
-  .theme-toggle__icon {
-      position: absolute;
-      font-size: 1.05rem;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition:
-          transform 0.3s ease,
-          opacity 0.3s ease;
-  }
-
-  .theme-toggle__icon--sun {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-  }
-
-  .theme-toggle__icon--moon {
-      opacity: 0;
-      transform: rotate(-30deg) scale(0.7);
-  }
-
-  html.dark .theme-toggle__icon--sun {
-      opacity: 0;
-      transform: rotate(30deg) scale(0.7);
-  }
-
-  html.dark .theme-toggle__icon--moon {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
   }
