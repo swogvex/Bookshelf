@@ -9,7 +9,7 @@ year: 2016
 rating: 2
 
 genres:
-  - Slice of LIfe
+  - Slice of Life
   - Romance
   - Drama
 
