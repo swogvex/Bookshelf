@@ -9,7 +9,8 @@ year: 2016
 rating: 2
 
 genres:
-  - Mitografía
+  - Romance
+  - Drama
 
 finishedAt: "2026-02-20"
 

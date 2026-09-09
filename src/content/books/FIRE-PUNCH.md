@@ -9,7 +9,8 @@ year: 2016
 rating: 2
 
 genres:
-  - Mitografía
+  - Fantasía
+  - Acción
 
 finishedAt: "2026-02-20"
 

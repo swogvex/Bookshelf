@@ -9,7 +9,9 @@ year: 2016
 rating: 2
 
 genres:
-  - Mitografía
+  - Misterio
+  - Drama
+  - Psicológico
 
 finishedAt: "2026-02-20"
 

@@ -9,7 +9,8 @@ year: 2016
 rating: 2
 
 genres:
-  - Mitografía
+  - Romance
+  - Slice of Life
 
 finishedAt: "2026-02-20"
 

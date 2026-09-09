@@ -11,7 +11,9 @@ rating: 4
 genres:
   - Romance
   - Drama
-  - Manga
+  - Slice of Life
+  - Psicológico
+  - Desarrollo Personal
 
 finishedAt: "2026-02-20"
 

@@ -9,7 +9,10 @@ year: 2016
 rating: 2
 
 genres:
-  - Mitografía
+  - Romance
+  - Drama
+  - Desarrollo Personal
+  - Psicológico
 
 finishedAt: "2026-02-20"
 

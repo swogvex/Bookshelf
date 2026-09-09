@@ -9,8 +9,9 @@ year: 2025
 rating: 5
 
 genres:
-  - Clasicos
-  - Novela
+  - Mitología
+  - Fantasía
+  - Aventura
 
 finishedAt: "2026-08-20"
 

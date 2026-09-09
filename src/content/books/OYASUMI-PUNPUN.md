@@ -9,7 +9,11 @@ year: 2016
 rating: 2
 
 genres:
-  - Mitografía
+  - Slice of Life
+  - Romance
+  - Drama
+  - Psicológico
+  - Desarrollo Personal
 
 finishedAt: "2026-02-20"
 
