@@ -4,7 +4,7 @@ author: "Anónimo chino del siglo XVI"
 
 cover: "VIAJE-AL-OESTE"
 
-year: 2025
+year: 2026
 
 rating: 5
 
@@ -13,7 +13,7 @@ genres:
   - Fantasía
   - Aventura
 
-finishedAt: "2026-08-20"
+finishedAt: "2026-09-11"
 
 featured: true
 ---
