@@ -18,8 +18,4 @@ finishedAt: "2026-08-20"
 featured: true
 ---
 
-# Viaje al Oeste
-
-Mi review personal.
-
-Una de las mejores novelas de ciencia ficción.
+Una obra monumental que combina aventura, humor, espiritualidad y mitología como pocas. El viaje de Sun Wukong y sus compañeros está lleno de episodios memorables, personajes inolvidables y un imaginario que sigue influyendo en la cultura popular siglos después. A pesar de su antigüedad, conserva una sorprendente capacidad para entretener y maravillar.
