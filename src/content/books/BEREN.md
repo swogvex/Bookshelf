@@ -2,7 +2,7 @@
 title: "BEREN"
 author: "APOLODORO"
 
-cover: "/books/BEREN.webp"
+cover: "BEREN"
 
 year: 2016
 

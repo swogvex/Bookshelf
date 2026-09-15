@@ -2,7 +2,7 @@
 title: "LA QUÍMICA DEL ODIO"
 author: "UWU"
 
-cover: "/books/LA-QUÍMICA-DEL-ODIO.webp"
+cover: "LA-QUÍMICA-DEL-ODIO"
 
 year: 2016
 

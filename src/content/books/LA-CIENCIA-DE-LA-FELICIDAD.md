@@ -2,7 +2,7 @@
 title: "LA CIENCIA DE LA FELICIDAD"
 author: "UWU"
 
-cover: "/books/LA-CIENCIA-DE-LA-FELICIDAD.webp"
+cover: "LA-CIENCIA-DE-LA-FELICIDAD"
 
 year: 2016
 

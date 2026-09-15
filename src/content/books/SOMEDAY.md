@@ -2,7 +2,7 @@
 title: "SOMEDAY"
 author: "APOLODORO"
 
-cover: "/books/SOMEDAY.webp"
+cover: "SOMEDAY"
 
 year: 2016
 

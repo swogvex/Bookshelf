@@ -2,7 +2,7 @@
 title: "VIOLET Y FINCH"
 author: "UWU"
 
-cover: "/books/VIOLET-Y-FINCH.webp"
+cover: "VIOLET-Y-FINCH"
 
 year: 2016
 

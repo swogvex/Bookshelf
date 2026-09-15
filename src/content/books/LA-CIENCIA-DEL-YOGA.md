@@ -2,7 +2,7 @@
 title: "LA CIENCIA DEL YOGA"
 author: "UWU"
 
-cover: "/books/LA-CIENCIA-DEL-YOGA.webp"
+cover: "LA-CIENCIA-DEL-YOGA"
 
 year: 2016
 

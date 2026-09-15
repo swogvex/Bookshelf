@@ -2,7 +2,7 @@
 title: "¿QUÉ SERÍA YO SIN TI?"
 author: "APOLODORO"
 
-cover: "/books/QUÉ-SERÍA-YO-SIN-TI.webp"
+cover: "QUÉ-SERÍA-YO-SIN-TI"
 
 year: 2016
 

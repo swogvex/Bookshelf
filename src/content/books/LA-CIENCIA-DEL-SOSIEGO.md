@@ -2,7 +2,7 @@
 title: "LA CIENCIA DEL SOSIEGO"
 author: "UWU"
 
-cover: "/books/LA-CIENCIA-DEL-SOSIEGO.webp"
+cover: "LA-CIENCIA-DEL-SOSIEGO"
 
 year: 2016
 

@@ -2,7 +2,7 @@
 title: "EL-MITO-DE-SISIFO"
 author: "APOLODORO"
 
-cover: "/books/EL-MITO-DE-SISIFO.webp"
+cover: "EL-MITO-DE-SISIFO"
 
 year: 2016
 

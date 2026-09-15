@@ -2,7 +2,7 @@
 title: "ANOTHER DAY"
 author: "APOLODORO"
 
-cover: "/books/ANOTHER-DAY.webp"
+cover: "ANOTHER-DAY"
 
 year: 2016
 

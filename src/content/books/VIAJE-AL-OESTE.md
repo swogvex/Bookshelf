@@ -2,7 +2,7 @@
 title: "Viaje al Oeste"
 author: "Anónimo chino del siglo XVI"
 
-cover: "/books/VIAJE-AL-OESTE.webp"
+cover: "VIAJE-AL-OESTE"
 
 year: 2025
 

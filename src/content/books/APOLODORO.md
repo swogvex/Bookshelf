@@ -2,7 +2,7 @@
 title: "BIBLIOTECA MITOLÓGICA"
 author: "APOLODORO"
 
-cover: "/books/BIBLIOTECA-MITOLÓGICA.webp"
+cover: "BIBLIOTECA-MITOLÓGICA"
 
 year: 2016
 

@@ -2,7 +2,7 @@
 title: "FLORES-DE-VERANO"
 author: "APOLODORO"
 
-cover: "/books/FLORES-DE-VERANO.webp"
+cover: "FLORES-DE-VERANO"
 
 year: 2016
 

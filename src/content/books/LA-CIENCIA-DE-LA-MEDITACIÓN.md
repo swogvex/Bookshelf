@@ -2,7 +2,7 @@
 title: "LA CIENCIA DE LA MEDITACIÓN"
 author: "UWU"
 
-cover: "/books/LA-CIENCIA-DE-LA-MEDITACIÓN.webp"
+cover: "LA-CIENCIA-DE-LA-MEDITACIÓN"
 
 year: 2016
 

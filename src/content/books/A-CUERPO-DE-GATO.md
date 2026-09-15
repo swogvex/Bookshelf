@@ -2,7 +2,7 @@
 title: "A-CUERPO-DE-GATO"
 author: "APOLODORO"
 
-cover: "/books/A-CUERPO-DE-GATO.webp"
+cover: "A-CUERPO-DE-GATO"
 
 year: 2016
 

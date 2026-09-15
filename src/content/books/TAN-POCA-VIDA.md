@@ -2,7 +2,7 @@
 title: "TAN-POCA-VIDA"
 author: "APOLODORO"
 
-cover: "/books/TAN-POCA-VIDA.webp"
+cover: "TAN-POCA-VIDA"
 
 year: 2016
 

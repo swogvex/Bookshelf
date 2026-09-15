@@ -2,7 +2,7 @@
 title: "INVISIBLE"
 author: "APOLODORO"
 
-cover: "/books/INVISIBLE.webp"
+cover: "INVISIBLE"
 
 year: 2016
 

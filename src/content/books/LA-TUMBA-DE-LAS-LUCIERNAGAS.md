@@ -2,7 +2,7 @@
 title: "LA-TUMBA-DE-LAS-LUCIERNAGAS"
 author: "APOLODORO"
 
-cover: "/books/LA-TUMBA-DE-LAS-LUCIERNAGAS.webp"
+cover: "LA-TUMBA-DE-LAS-LUCIERNAGAS"
 
 year: 2016
 

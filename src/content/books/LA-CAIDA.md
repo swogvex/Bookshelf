@@ -2,7 +2,7 @@
 title: "LA-CAIDA"
 author: "APOLODORO"
 
-cover: "/books/LA-CAIDA.webp"
+cover: "LA-CAIDA"
 
 year: 2016
 

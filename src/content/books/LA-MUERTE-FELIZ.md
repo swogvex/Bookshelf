@@ -2,7 +2,7 @@
 title: "LA-MUERTE-FELIZ"
 author: "APOLODORO"
 
-cover: "/books/LA-MUERTE-FELIZ.webp"
+cover: "LA-MUERTE-FELIZ"
 
 year: 2016
 

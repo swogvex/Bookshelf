@@ -2,7 +2,7 @@
 title: "EL-ARTE-DE-LA-GUERRA"
 author: "APOLODORO"
 
-cover: "/books/EL-ARTE-DE-LA-GUERRA.webp"
+cover: "EL-ARTE-DE-LA-GUERRA"
 
 year: 2016
 

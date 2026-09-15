@@ -2,7 +2,7 @@
 title: "SILENCIO"
 author: "APOLODORO"
 
-cover: "/books/SILENCIO.webp"
+cover: "SILENCIO"
 
 year: 2016
 

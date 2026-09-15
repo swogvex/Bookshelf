@@ -2,7 +2,7 @@
 title: "IMPOSIBLE-DECIR-ADIOS"
 author: "APOLODORO"
 
-cover: "/books/IMPOSIBLE-DECIR-ADIOS.webp"
+cover: "IMPOSIBLE-DECIR-ADIOS"
 
 year: 2016
 

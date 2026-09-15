@@ -2,7 +2,7 @@
 title: "ANATOMIA-DE-LA-MELANCOLIA"
 author: "APOLODORO"
 
-cover: "/books/ANATOMIA-DE-LA-MELANCOLIA.webp"
+cover: "ANATOMIA-DE-LA-MELANCOLIA"
 
 year: 2016
 

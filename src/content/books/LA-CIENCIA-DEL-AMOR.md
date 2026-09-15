@@ -2,7 +2,7 @@
 title: "LA CIENCIA DEL AMOR"
 author: "UWU"
 
-cover: "/books/LA-CIENCIA-DEL-AMOR.webp"
+cover: "LA-CIENCIA-DEL-AMOR"
 
 year: 2016
 

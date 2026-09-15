@@ -2,7 +2,7 @@
 title: "DORAYAKI"
 author: "APOLODORO"
 
-cover: "/books/DORAYAKI.webp"
+cover: "DORAYAKI"
 
 year: 2016
 

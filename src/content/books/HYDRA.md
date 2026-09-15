@@ -2,7 +2,7 @@
 title: "HYDRA"
 author: "APOLODORO"
 
-cover: "/books/HYDRA.webp"
+cover: "HYDRA"
 
 year: 2016
 

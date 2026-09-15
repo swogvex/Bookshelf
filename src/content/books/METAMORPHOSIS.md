@@ -2,7 +2,7 @@
 title: "METAMORPHOSIS"
 author: "APOLODORO"
 
-cover: "/books/METAMORPHOSIS.webp"
+cover: "METAMORPHOSIS"
 
 year: 2016
 

@@ -2,7 +2,7 @@
 title: "SIX EARLIER DAYS"
 author: "APOLODORO"
 
-cover: "/books/SIX-EARLIER-DAYS.webp"
+cover: "SIX-EARLIER-DAYS"
 
 year: 2016
 

@@ -2,7 +2,7 @@
 title: "HANAKOTOBA"
 author: "APOLODORO"
 
-cover: "/books/HANAKOTOBA.webp"
+cover: "HANAKOTOBA"
 
 year: 2016
 

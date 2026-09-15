@@ -2,7 +2,7 @@
 title: "YA-NADIE-ESCRIBE-CARTAS"
 author: "APOLODORO"
 
-cover: "/books/YA-NADIE-ESCRIBE-CARTAS.webp"
+cover: "YA-NADIE-ESCRIBE-CARTAS"
 
 year: 2016
 

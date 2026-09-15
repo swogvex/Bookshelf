@@ -2,7 +2,7 @@
 title: "EVERY DAY"
 author: "APOLODORO"
 
-cover: "/books/EVERY-DAY.webp"
+cover: "EVERY-DAY"
 
 year: 2016
 

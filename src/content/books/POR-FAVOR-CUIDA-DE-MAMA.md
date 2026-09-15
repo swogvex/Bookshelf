@@ -2,7 +2,7 @@
 title: "POR-FAVOR-CUIDA-DE-MAMA"
 author: "APOLODORO"
 
-cover: "/books/POR-FAVOR-CUIDA-DE-MAMA.webp"
+cover: "POR-FAVOR-CUIDA-DE-MAMA"
 
 year: 2016
 

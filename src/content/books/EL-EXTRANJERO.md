@@ -2,7 +2,7 @@
 title: "EL-EXTRANJERO"
 author: "APOLODORO"
 
-cover: "/books/EL-EXTRANJERO.webp"
+cover: "EL-EXTRANJERO"
 
 year: 2016
 

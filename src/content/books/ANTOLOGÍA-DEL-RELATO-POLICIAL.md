@@ -2,7 +2,7 @@
 title: "ANTOLOGÍA DEL RELATO POLICIAL"
 author: "APOLODORO"
 
-cover: "/books/ANTOLOGÍA-DEL-RELATO-POLICIAL.webp"
+cover: "ANTOLOGÍA-DEL-RELATO-POLICIAL"
 
 year: 2016
 

@@ -2,7 +2,7 @@
 title: "APRENDE-GIT-GITHUB"
 author: "MiduDev"
 
-cover: "/books/APRENDE-GIT-GITHUB.webp"
+cover: "APRENDE-GIT-GITHUB"
 
 year: 2024
 

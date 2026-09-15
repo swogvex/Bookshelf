@@ -1,15 +1,18 @@
 ---
-import { Image } from "astro:assets";
-
 const { book, loading = "lazy" } = Astro.props;
+
+const COVER_BASE_URL = import.meta.env.PUBLIC_COVER_BASE_URL;
+
+const coverUrl =
+  `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
 ---
 
 <article class="book-card" data-book-id={book.id}>
   <button class="book-link" data-book-slug={book.id}>
     <div class="book">
       <div class="book-cover">
-        <Image
-          src={book.data.cover}
+        <img
+          src={coverUrl}
           alt={book.data.title}
           class="cover-img"
           width={225}

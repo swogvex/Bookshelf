@@ -258,6 +258,8 @@
   // @ts-nocheck
   import { ArrowLeft, ArrowRight, Share2, Star, X, createIcons } from "lucide";
 
+  const COVER_BASE_URL = import.meta.env.PUBLIC_COVER_BASE_URL;
+
   const openWindows = new Map();
   let nextZIndex = 1;
   let offsetCount = 0;
@@ -299,7 +301,7 @@
     const extraGenres = genres.length > 1 ? `+${genres.length - 1}` : "";
 
     const cover = requiredElement(windowElement, ".book-window__cover");
-    cover.src = book.cover;
+    cover.src = `${COVER_BASE_URL}/Books/${book.cover}.webp`;
     cover.alt = book.title;
     requiredElement(windowElement, ".book-window__author").textContent =
       book.author;

@@ -2,7 +2,7 @@
 title: "ILIADA"
 author: "APOLODORO"
 
-cover: "/books/ILIADA.webp"
+cover: "ILIADA"
 
 year: 2016
 

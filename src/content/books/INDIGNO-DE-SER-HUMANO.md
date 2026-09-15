@@ -2,7 +2,7 @@
 title: "INDIGNO-DE-SER-HUMANO"
 author: "APOLODORO"
 
-cover: "/books/INDIGNO-DE-SER-HUMANO.webp"
+cover: "INDIGNO-DE-SER-HUMANO"
 
 year: 2016
 

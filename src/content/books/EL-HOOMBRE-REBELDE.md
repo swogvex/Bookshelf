@@ -2,7 +2,7 @@
 title: "EL-HOOMBRE-REBELDE"
 author: "APOLODORO"
 
-cover: "/books/EL-HOOMBRE-REBELDE.webp"
+cover: "EL-HOOMBRE-REBELDE"
 
 year: 2016
 
