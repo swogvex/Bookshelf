@@ -3,8 +3,7 @@ const { book, loading = "lazy" } = Astro.props;
 
 const COVER_BASE_URL = import.meta.env.PUBLIC_COVER_BASE_URL;
 
-const coverUrl =
-  `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
+const coverUrl = `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
 ---
 
 <article class="book-card" data-book-id={book.id}>
@@ -70,8 +69,8 @@ const coverUrl =
       inset 0 -1px 2px #00000080,
       2px 3px 5px rgba(0, 0, 0, 0.16);
     transition:
-      transform 0.5s ease-in-out,
-      box-shadow 0.5s ease-in-out;
+      transform 0.35s ease-in-out,
+      box-shadow 0.35s ease-in-out;
   }
 
   .book-cover::before,
@@ -94,7 +93,7 @@ const coverUrl =
       rgba(255, 255, 255, 0.2) 0%,
       rgba(255, 255, 255, 0) 100%
     );
-    transition: width 0.5s ease;
+    transition: width 0.35s ease;
   }
 
   .book-cover::after {
@@ -110,8 +109,8 @@ const coverUrl =
     );
     opacity: 0.1;
     transition:
-      width 0.5s ease,
-      opacity 0.5s ease;
+      width 0.35s ease,
+      opacity 0.35s ease;
   }
 
   /* Adaptación: la imagen de portada ocupa el 100% del .book-cover,

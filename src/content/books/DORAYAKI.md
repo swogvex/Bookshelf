@@ -1,25 +1,20 @@
 ---
-title: "DORAYAKI"
-author: "APOLODORO"
+title: "Dorayaki"
+author: "Durian Sukegawa"
 
 cover: "DORAYAKI"
 
-year: 2016
+year: 2021
 
 rating: 2
 
 genres:
   - Slice of Life
-  - Romance
   - Drama
 
-finishedAt: "2026-02-20"
+finishedAt: "2021-02-20"
 
 featured: true
 ---
 
-# Viaje al Oeste
-
-Mi review personal.
-
-Una de las mejores novelas de ciencia ficción.
+Una novela delicada y de lectura agradable que encuentra belleza en los pequeños gestos cotidianos y en las relaciones humanas. Sin embargo, su ritmo pausado y su desarrollo contenido pueden hacer que la historia resulte demasiado sencilla para algunos lectores. Aunque transmite sensibilidad y deja reflexiones interesantes, no siempre logra alcanzar la profundidad emocional que parece prometer.

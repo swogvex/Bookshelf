@@ -9,7 +9,6 @@ year: 2026
 rating: 5
 
 genres:
-  - Mitología
   - Fantasía
   - Aventura
 

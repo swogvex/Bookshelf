@@ -1,25 +1,20 @@
 ---
-title: "LA-CAIDA"
-author: "APOLODORO"
+title: "La Caida"
+author: "Albert Camus"
 
 cover: "LA-CAIDA"
 
-year: 2016
+year: 2023
 
-rating: 2
+rating: 3
 
 genres:
-  - Slice of Life
-  - Romance
+  - Filosofía
   - Drama
 
-finishedAt: "2026-02-20"
+finishedAt: "2023-06-01"
 
 featured: true
 ---
 
-# Viaje al Oeste
-
-Mi review personal.
-
-Una de las mejores novelas de ciencia ficción.
+Una obra inteligente y llena de reflexiones interesantes sobre la culpa, el juicio y la naturaleza humana. Aunque algunas de sus ideas me parecieron muy acertadas, la estructura basada casi por completo en un monólogo hizo que la lectura se me hiciera algo pesada por momentos. Una buena novela, pero no de las que más me han impactado de Camus.

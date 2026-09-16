@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import SmoothScroll from "../components/layout/SmoothScroll.astro";
 
 const { title = "Bookshelf" } = Astro.props;
 const pathname = Astro.url.pathname;
@@ -19,6 +20,7 @@ const isWritings = pathname.startsWith("/writings");
   </head>
 
   <body>
+    <SmoothScroll />
     <header class="site-header">
       <div class="site-header__top">
         <h1>Bookshelf</h1>
