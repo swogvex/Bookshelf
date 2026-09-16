@@ -1,20 +1,25 @@
 ---
-title: "Flores de Verano"
-author: "Tamiki Hara"
+title: "FLORES-DE-VERANO"
+author: "APOLODORO"
 
 cover: "FLORES-DE-VERANO"
 
-year: 2023
+year: 2016
 
 rating: 2
 
 genres:
-  - Histórico
+  - Slice of Life
+  - Romance
   - Drama
 
-finishedAt: "2023-11-26"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Un testimonio valioso sobre las consecuencias humanas de la bomba atómica y una obra con una enorme importancia histórica. Sin embargo, personalmente me costó bastante conectar con su narración. Su estilo sobrio y fragmentado transmite bien el desconcierto de la tragedia, pero también hace que la lectura resulte exigente y, por momentos, poco atractiva. Reconozco su relevancia literaria y documental, aunque no me pareció una obra especialmente interesante ni fácil de recomendar a cualquier lector.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

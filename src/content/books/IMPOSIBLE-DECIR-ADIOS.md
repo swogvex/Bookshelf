@@ -1,20 +1,25 @@
 ---
-title: "Imposible Decir Adiós"
-author: "Han Kang"
+title: "IMPOSIBLE-DECIR-ADIOS"
+author: "APOLODORO"
 
 cover: "IMPOSIBLE-DECIR-ADIOS"
 
-year: 2022
+year: 2016
 
-rating: 4
+rating: 2
 
 genres:
-  - Histórico
+  - Slice of Life
+  - Romance
   - Drama
 
-finishedAt: "2022-12-04"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Han Kang demuestra una enorme sensibilidad literaria en una novela que combina memoria, duelo y trauma colectivo. Con una prosa delicada y evocadora, reconstruye heridas históricas a través de una experiencia profundamente íntima y humana. No siempre es una lectura fácil por la dureza de los temas que aborda, pero su capacidad para transmitir emociones y reflexionar sobre el recuerdo la convierten en una obra muy valiosa.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

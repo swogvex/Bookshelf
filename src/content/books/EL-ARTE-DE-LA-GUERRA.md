@@ -1,20 +1,25 @@
 ---
-title: "El Arte de la Guerra"
-author: "Sun Tzu"
+title: "EL-ARTE-DE-LA-GUERRA"
+author: "APOLODORO"
 
 cover: "EL-ARTE-DE-LA-GUERRA"
 
-year: 2024
+year: 2016
 
-rating: 5
+rating: 2
 
 genres:
-  - Filosofía
-  - Filosofía
+  - Slice of Life
+  - Romance
+  - Drama
 
-finishedAt: "2026-02-27"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Breve, directo y sorprendentemente vigente. Más allá del ámbito militar, sus enseñanzas sobre estrategia, liderazgo, planificación y toma de decisiones han encontrado aplicación en campos tan diversos como la política, los negocios y el desarrollo personal. Su lenguaje conciso obliga a una lectura reflexiva, pero precisamente ahí reside gran parte de su valor.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

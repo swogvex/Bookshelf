@@ -1,20 +1,25 @@
 ---
-title: "La Muerte Feliz"
-author: "Albert Camus"
+title: "LA-MUERTE-FELIZ"
+author: "APOLODORO"
 
 cover: "LA-MUERTE-FELIZ"
 
-year: 2024
+year: 2016
 
-rating: 4
+rating: 2
 
 genres:
-  - Filosofía
+  - Slice of Life
+  - Romance
   - Drama
 
-finishedAt: "2024-02-13"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Una novela serena y reflexiva sobre la felicidad, la libertad y el sentido de la vida. Aunque no alcanza la fuerza de otras obras de Camus, ofrece ideas muy interesantes y una mirada más luminosa de lo habitual en el autor.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

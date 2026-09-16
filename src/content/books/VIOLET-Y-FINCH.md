@@ -1,21 +1,26 @@
 ---
-title: "Violet y Finch"
-author: "Jennifer Niven"
+title: "VIOLET Y FINCH"
+author: "UWU"
 
 cover: "VIOLET-Y-FINCH"
 
-year: 2026
+year: 2016
 
-rating: 5
+rating: 2
 
 genres:
   - Romance
   - Drama
-  - Filosofía
+  - Desarrollo Personal
+  - Psicológico
 
-finishedAt: "2026-04-13"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Una historia tan emotiva como dolorosa que aborda el amor, la salud mental y la búsqueda de un lugar en el mundo con una enorme sensibilidad. Violet y Finch son personajes fáciles de recordar, y su relación consigue transmitir tanto ternura como tristeza. Una novela que deja huella y permanece en la memoria mucho después de terminarla.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

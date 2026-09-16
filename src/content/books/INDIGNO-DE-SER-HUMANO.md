@@ -1,20 +1,25 @@
 ---
-title: "Indigno de ser Humano"
-author: "Osamu Dazai"
+title: "INDIGNO-DE-SER-HUMANO"
+author: "APOLODORO"
 
 cover: "INDIGNO-DE-SER-HUMANO"
 
-year: 2023
+year: 2016
 
-rating: 5
+rating: 2
 
 genres:
-  - Filosofía
+  - Slice of Life
+  - Romance
   - Drama
 
-finishedAt: "2023-07-16"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Una novela desgarradora y profundamente humana que retrata el aislamiento, la incomunicación y la incapacidad de encajar en la sociedad. Dazai convierte el sufrimiento de su protagonista en una confesión íntima que resulta tan incómoda como fascinante. Su tono pesimista no la convierte en una lectura fácil, pero precisamente esa honestidad brutal es lo que le da tanta fuerza. Una obra que deja huella y que sigue resonando mucho después de cerrar el libro.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

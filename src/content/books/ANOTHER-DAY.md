@@ -1,21 +1,25 @@
 ---
-title: "Another Day"
-author: "David Levithan"
+title: "ANOTHER DAY"
+author: "APOLODORO"
 
 cover: "ANOTHER-DAY"
 
-year: 2019
+year: 2016
 
-rating: 5
+rating: 2
 
 genres:
   - Drama
   - Romance
-  - Fantasía
+  - Slice of Life
 
-finishedAt: "2019-05-01"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Lejos de limitarse a repetir la historia original, aporta una nueva profundidad al poner el foco en Rhiannon. Su perspectiva permite comprender mejor sus inseguridades, su relación con Justin y el impacto que tiene la aparición de A en su vida. Complementa perfectamente a 'Every Day' y enriquece muchos de los momentos más importantes de la novela.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

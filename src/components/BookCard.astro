@@ -5,7 +5,8 @@ const COVER_BASE_URL =
   import.meta.env.PUBLIC_COVER_BASE_URL?.replace(/\/+$/, "") ||
   "https://pub-fe8ab91a3b5f4c72ab805f8ba4cee50d.r2.dev";
 
-const coverUrl = `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
+const coverUrl =
+  `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
 ---
 
 <article class="book-card" data-book-id={book.id}>
@@ -71,8 +72,8 @@ const coverUrl = `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
       inset 0 -1px 2px #00000080,
       2px 3px 5px rgba(0, 0, 0, 0.16);
     transition:
-      transform 0.35s ease-in-out,
-      box-shadow 0.35s ease-in-out;
+      transform 0.5s ease-in-out,
+      box-shadow 0.5s ease-in-out;
   }
 
   .book-cover::before,
@@ -95,7 +96,7 @@ const coverUrl = `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
       rgba(255, 255, 255, 0.2) 0%,
       rgba(255, 255, 255, 0) 100%
     );
-    transition: width 0.35s ease;
+    transition: width 0.5s ease;
   }
 
   .book-cover::after {
@@ -111,8 +112,8 @@ const coverUrl = `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
     );
     opacity: 0.1;
     transition:
-      width 0.35s ease,
-      opacity 0.35s ease;
+      width 0.5s ease,
+      opacity 0.5s ease;
   }
 
   /* Adaptación: la imagen de portada ocupa el 100% del .book-cover,

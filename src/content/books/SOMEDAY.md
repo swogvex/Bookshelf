@@ -1,21 +1,25 @@
 ---
-title: "Someday"
-author: "David Levithan"
+title: "SOMEDAY"
+author: "APOLODORO"
 
 cover: "SOMEDAY"
 
-year: 2019
+year: 2016
 
-rating: 4
+rating: 2
 
 genres:
-  - Fantasía
+  - Slice of Life
   - Romance
   - Drama
 
-finishedAt: "2019-06-20"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Un cierre satisfactorio para la trilogía que amplía el universo de A y plantea nuevas preguntas sobre la identidad, el alma y las conexiones humanas. Aunque pierde parte de la frescura de la novela original, compensa con reflexiones interesantes y una evolución natural de sus personajes. Una conclusión emotiva y adecuada para quienes disfrutaron de las entregas anteriores.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

@@ -1,21 +1,25 @@
 ---
-title: "Six Earlier Days"
-author: "David Levithan"
+title: "SIX EARLIER DAYS"
+author: "APOLODORO"
 
 cover: "SIX-EARLIER-DAYS"
 
-year: 2019
+year: 2016
 
-rating: 4
+rating: 2
 
 genres:
-  - Fantasía
+  - Slice of Life
   - Romance
   - Drama
 
-finishedAt: "2019-08-08"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Un complemento muy interesante para los lectores de 'Every Day'. A través de seis momentos concretos de la vida de A, amplía su personalidad y permite comprender mejor su forma de ver el mundo antes de conocer a Rhiannon. Es breve y no resulta tan impactante como la novela principal, pero añade contexto y profundidad a un personaje ya de por sí fascinante.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

@@ -1,21 +1,24 @@
 ---
-title: "¿Qué Sería Yo Sin Ti?"
-author: "Guillaume Musso"
+title: "¿QUÉ SERÍA YO SIN TI?"
+author: "APOLODORO"
 
 cover: "QUÉ-SERÍA-YO-SIN-TI"
 
-year: 2021
+year: 2016
 
 rating: 2
 
 genres:
   - Romance
   - Drama
-  - Misterio
 
-finishedAt: "2021-05-12"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Una lectura ágil y entretenida que mezcla romance, suspense y algunos elementos sorprendentes. Sin embargo, personalmente no terminé de conectar con la historia ni con varias de las decisiones que toma la trama. Se deja leer con facilidad, pero en mi caso no consiguió despertar demasiado interés y algunos giros me resultaron poco convincentes. Aun así, entiendo por qué puede funcionar para quienes buscan una novela romántica ligera con algo de misterio.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

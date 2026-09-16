@@ -1,20 +1,25 @@
 ---
-title: "La Tumba de las Luciérnagas"
-author: "Akiyuki Nosaka"
+title: "LA-TUMBA-DE-LAS-LUCIERNAGAS"
+author: "APOLODORO"
 
 cover: "LA-TUMBA-DE-LAS-LUCIERNAGAS"
 
-year: 2025
+year: 2016
 
-rating: 4
+rating: 2
 
 genres:
-  - Histórico
+  - Slice of Life
+  - Romance
   - Drama
 
-finishedAt: "2025-05-11"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Una historia breve pero profundamente conmovedora sobre la guerra, la pérdida y la supervivencia. Su carga emocional es enorme y consigue dejar una huella duradera sin necesidad de recurrir a excesos.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

@@ -1,20 +1,25 @@
 ---
-title: "Biblioteca Mitológica"
-author: "Apolodoro"
+title: "BIBLIOTECA MITOLÓGICA"
+author: "APOLODORO"
 
 cover: "BIBLIOTECA-MITOLÓGICA"
 
-year: 2024
+year: 2016
 
-rating: 5
+rating: 2
 
 genres:
+  - Mitología
   - Fantasía
   - Aventura
 
-finishedAt: "2024-11-05"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Una de las recopilaciones más importantes de la mitología griega que han llegado hasta nuestros días. Apolodoro reúne dioses, héroes, monstruos y leyendas en una narración clara y sorprendentemente accesible, convirtiéndola en una referencia imprescindible para comprender gran parte de la literatura y la cultura occidental. Una lectura tan valiosa para el entretenimiento como para el aprendizaje.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

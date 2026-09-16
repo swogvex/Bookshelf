@@ -1,20 +1,24 @@
 ---
-title: "La Química del Odio"
-author: "Carmen Chaparro"
+title: "LA QUÍMICA DEL ODIO"
+author: "UWU"
 
 cover: "LA-QUÍMICA-DEL-ODIO"
 
-year: 2021
+year: 2016
 
-rating: 1
+rating: 2
 
 genres:
   - Misterio
   - Drama
 
-finishedAt: "2021-07-22"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Tiene una premisa interesante y algunos momentos que consiguen mantener la intriga, pero personalmente no conecté con la historia ni con sus personajes. La trama me pareció irregular y, en varios momentos, la lectura se me hizo pesada. Entiendo por qué puede gustar a otros lectores, pero en mi caso no logró despertar demasiado interés.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.

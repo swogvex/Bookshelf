@@ -1,20 +1,25 @@
 ---
-title: "El Extranjero"
-author: "Albert Camus"
+title: "EL-EXTRANJERO"
+author: "APOLODORO"
 
 cover: "EL-EXTRANJERO"
 
-year: 2023
+year: 2016
 
-rating: 5
+rating: 2
 
 genres:
-  - Filosofía
+  - Slice of Life
+  - Romance
   - Drama
 
-finishedAt: "2023-02-01"
+finishedAt: "2026-02-20"
 
 featured: true
 ---
 
-Una novela breve pero extraordinariamente poderosa. A través de la indiferencia de Meursault ante las normas y expectativas sociales, Camus construye una reflexión profunda sobre el absurdo, la libertad y el sentido de la existencia. Su estilo sobrio y directo potencia el impacto de una historia que sigue invitando a la reflexión mucho después de terminarla.
+# Viaje al Oeste
+
+Mi review personal.
+
+Una de las mejores novelas de ciencia ficción.
