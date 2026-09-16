@@ -1,25 +1,20 @@
 ---
-title: "METAMORPHOSIS"
-author: "APOLODORO"
+title: "Metamorphosis"
+author: "Franz Kafka"
 
 cover: "METAMORPHOSIS"
 
-year: 2016
+year: 2024
 
-rating: 2
+rating: 5
 
 genres:
-  - Slice of Life
-  - Romance
+  - Filosofía
   - Drama
 
-finishedAt: "2026-02-20"
+finishedAt: "2024-07-06"
 
 featured: true
 ---
 
-# Viaje al Oeste
-
-Mi review personal.
-
-Una de las mejores novelas de ciencia ficción.
+Una obra inquietante y brillante que transforma una premisa absurda en una profunda reflexión sobre la identidad, la soledad y la incomprensión. Kafka consigue crear una atmósfera única que sigue resultando tan impactante hoy como cuando fue publicada.

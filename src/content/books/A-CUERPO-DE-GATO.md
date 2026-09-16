@@ -1,5 +1,5 @@
 ---
-title: "A Cuerpo De Gato"
+title: "A Cuerpo de Gato"
 author: "Hiro Arikawa"
 
 cover: "A-CUERPO-DE-GATO"

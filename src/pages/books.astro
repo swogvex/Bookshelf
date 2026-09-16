@@ -99,6 +99,51 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
   </section>
   <WindowManager />
 
+  <script>
+    import Lenis from "lenis";
+
+    let filterScroller: Lenis | undefined;
+    let filterAnimationFrame: number | undefined;
+
+    function stopFilterScroll() {
+      if (filterAnimationFrame !== undefined) {
+        cancelAnimationFrame(filterAnimationFrame);
+        filterAnimationFrame = undefined;
+      }
+
+      filterScroller?.destroy();
+      filterScroller = undefined;
+    }
+
+    function startFilterScroll() {
+      stopFilterScroll();
+
+      const wrapper = document.querySelector(".book-filters__scroll");
+      const content = wrapper?.firstElementChild;
+      if (!wrapper || !content) return;
+
+      filterScroller = new Lenis({
+        wrapper,
+        content,
+        lerp: 0.08,
+        wheelMultiplier: 0.8,
+        smoothWheel: true,
+        syncTouch: true,
+      });
+
+      function raf(time: number) {
+        filterScroller?.raf(time);
+        filterAnimationFrame = requestAnimationFrame(raf);
+      }
+
+      filterAnimationFrame = requestAnimationFrame(raf);
+    }
+
+    startFilterScroll();
+    document.addEventListener("astro:before-swap", stopFilterScroll);
+    document.addEventListener("astro:page-load", startFilterScroll);
+  </script>
+
   <script define:vars={{ booksData }}>
     function initializeBooksPage() {
       window.booksData = booksData;
@@ -276,7 +321,9 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
   }
 
   .filter-option {
+    position: relative;
     padding: 0;
+    padding-bottom: 0.2rem;
     border: 0;
     background: none;
     color: inherit;
@@ -286,9 +333,26 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
     text-align: left;
   }
 
-  .filter-option.is-active,
-  .filter-option:hover {
-    text-decoration: underline;
+  .filter-option::after,
+  .mobile-filter-toggle::after,
+  .mobile-filter-reset::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.2s ease;
+  }
+
+  .filter-option.is-active::after,
+  .filter-option:hover::after,
+  .mobile-filter-toggle:hover::after,
+  .mobile-filter-reset:hover::after {
+    transform: scaleX(1);
   }
 
   .rating-option {
@@ -305,7 +369,7 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
     grid-template-columns: repeat(auto-fill, 120px);
     gap: clamp(1rem, 4vw, 2rem);
     justify-content: center;
-    padding-top: 5rem;
+    padding-top: 3.5rem;
   }
 
   @media (min-width: 768px) {
@@ -343,13 +407,18 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
     .mobile-filter-toggle,
     .mobile-filter-reset,
     .mobile-filter-close {
+      position: relative;
       padding: 0;
       border: 0;
       background: none;
       color: inherit;
       cursor: pointer;
       font: inherit;
-      text-decoration: underline;
+    }
+
+    .mobile-filter-toggle,
+    .mobile-filter-reset {
+      padding-bottom: 0.2rem;
     }
 
     .book-filters {

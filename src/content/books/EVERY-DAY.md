@@ -1,25 +1,21 @@
 ---
-title: "EVERY DAY"
-author: "APOLODORO"
+title: "Every Day"
+author: "David Levithan"
 
 cover: "EVERY-DAY"
 
-year: 2016
+year: 2019
 
-rating: 2
+rating: 5
 
 genres:
-  - Slice of Life
+  - Fantasía
   - Romance
   - Drama
 
-finishedAt: "2026-02-20"
+finishedAt: "2019-03-11"
 
 featured: true
 ---
 
-# Viaje al Oeste
-
-Mi review personal.
-
-Una de las mejores novelas de ciencia ficción.
+Una premisa tan extraña como brillante que utiliza el romance para reflexionar sobre la identidad, el género, la apariencia y la empatía. David Levithan consigue que cada capítulo se sienta diferente sin perder el hilo emocional de la historia. Una novela conmovedora que deja preguntas difíciles y personajes fáciles de recordar.

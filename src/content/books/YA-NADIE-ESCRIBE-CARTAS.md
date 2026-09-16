@@ -1,25 +1,20 @@
 ---
 title: "YA-NADIE-ESCRIBE-CARTAS"
-author: "APOLODORO"
+author: " Jang Eun-jin"
 
 cover: "YA-NADIE-ESCRIBE-CARTAS"
 
-year: 2016
+year: 2026
 
-rating: 2
+rating: 4
 
 genres:
   - Slice of Life
-  - Romance
   - Drama
 
-finishedAt: "2026-02-20"
+finishedAt: "2026-06-13"
 
 featured: true
 ---
 
-# Viaje al Oeste
-
-Mi review personal.
-
-Una de las mejores novelas de ciencia ficción.
+Una novela sencilla pero muy cercana, que encuentra belleza en los pequeños encuentros y en la comunicación entre personas en un mundo lleno de fragilidad para estrechar lazos humanos en una era digital. Breve, emotiva y fácil de recordar.

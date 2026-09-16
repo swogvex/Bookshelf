@@ -46,11 +46,15 @@
   }
 
   .book-window__header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 56px;
     padding: 0 1rem;
+    background: white;
     border-bottom: 1px solid var(--border);
     cursor: move;
     user-select: none;
@@ -64,6 +68,18 @@
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     scrollbar-gutter: stable;
+  }
+
+  .book-window__bottom-mask {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 4;
+    width: calc(100% - 1px);
+    height: 1rem;
+    background: white;
+    pointer-events: none;
   }
 
   .book-window__nav,
@@ -257,12 +273,14 @@
 <script>
   // @ts-nocheck
   import { ArrowLeft, ArrowRight, Share2, Star, X, createIcons } from "lucide";
+  import Lenis from "lenis";
 
   const COVER_BASE_URL = import.meta.env.PUBLIC_COVER_BASE_URL;
 
   const openWindows = new Map();
   let nextZIndex = 1;
   let offsetCount = 0;
+  const windowScrollers = new WeakMap();
 
   function getManager() {
     return document.getElementById("window-manager");
@@ -288,6 +306,40 @@
 
   function focusWindow(windowElement) {
     windowElement.style.zIndex = String(nextZIndex++);
+  }
+
+  function startWindowScroll(windowElement) {
+    const scrollElement = requiredElement(
+      windowElement,
+      ".book-window__scroll",
+    );
+    const scroller = new Lenis({
+      wrapper: scrollElement,
+      content: scrollElement.firstElementChild,
+      lerp: 0.08,
+      wheelMultiplier: 0.8,
+      smoothWheel: true,
+      syncTouch: true,
+    });
+    let animationFrame;
+
+    function raf(time) {
+      scroller.raf(time);
+      animationFrame = requestAnimationFrame(raf);
+    }
+
+    animationFrame = requestAnimationFrame(raf);
+    windowScrollers.set(windowElement, {
+      destroy() {
+        cancelAnimationFrame(animationFrame);
+        scroller.destroy();
+      },
+    });
+  }
+
+  function stopWindowScroll(windowElement) {
+    windowScrollers.get(windowElement)?.destroy();
+    windowScrollers.delete(windowElement);
   }
 
   function renderBook(windowElement, book) {
@@ -393,7 +445,10 @@
 
     const isMobile = window.innerWidth < 768;
     if (isMobile) {
-      openWindows.forEach((windowElement) => windowElement.remove());
+      openWindows.forEach((windowElement) => {
+        stopWindowScroll(windowElement);
+        windowElement.remove();
+      });
       openWindows.clear();
     }
 
@@ -438,6 +493,7 @@
 				</div>
 			</div>
       </div>
+      <div class="book-window__bottom-mask" aria-hidden="true"></div>
 		`;
 
     const maxScrollHeight = isMobile ? 630 : 480;
@@ -447,6 +503,7 @@
     renderBook(windowElement, book);
     manager.appendChild(windowElement);
     renderIcons(windowElement);
+    startWindowScroll(windowElement);
     openWindows.set(slug, windowElement);
     focusWindow(windowElement);
     if (!isMobile) makeDraggable(windowElement);
@@ -455,6 +512,7 @@
       "click",
       () => {
         openWindows.delete(windowElement.dataset.slug);
+        stopWindowScroll(windowElement);
         windowElement.remove();
       },
     );
@@ -480,7 +538,10 @@
   }
 
   function closeAllWindows() {
-    openWindows.forEach((windowElement) => windowElement.remove());
+    openWindows.forEach((windowElement) => {
+      stopWindowScroll(windowElement);
+      windowElement.remove();
+    });
     openWindows.clear();
   }
 
