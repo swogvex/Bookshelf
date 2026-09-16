@@ -2,8 +2,8 @@
 const { book, loading = "lazy" } = Astro.props;
 
 const COVER_BASE_URL = import.meta.env.PUBLIC_COVER_BASE_URL;
-
-const coverUrl = `${COVER_BASE_URL}/Books/${book.data.cover}.webp`;
+const coverSlug = String(book.data.cover).replace(/\.webp$/i, "");
+const coverUrl = `${COVER_BASE_URL}/Books/${coverSlug}.webp`;
 ---
 
 <article class="book-card" data-book-id={book.id}>

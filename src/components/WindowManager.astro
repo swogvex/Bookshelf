@@ -301,7 +301,8 @@
     const extraGenres = genres.length > 1 ? `+${genres.length - 1}` : "";
 
     const cover = requiredElement(windowElement, ".book-window__cover");
-    cover.src = `${COVER_BASE_URL}/Books/${book.cover}.webp`;
+    const coverSlug = String(book.cover).replace(/\.webp$/i, "");
+    cover.src = `${COVER_BASE_URL}/Books/${coverSlug}.webp`;
     cover.alt = book.title;
     requiredElement(windowElement, ".book-window__author").textContent =
       book.author;
