@@ -276,7 +276,6 @@
   import Lenis from "lenis";
 
   const COVER_BASE_URL = import.meta.env.PUBLIC_COVER_BASE_URL;
-  const SITE_BASE_URL = import.meta.env.BASE_URL;
 
   const openWindows = new Map();
   let nextZIndex = 1;
@@ -528,7 +527,7 @@
       "click",
       async () => {
         await navigator.clipboard.writeText(
-          `${location.origin}${SITE_BASE_URL}books#${windowElement.dataset.slug}`,
+          `${location.origin}/books#${windowElement.dataset.slug}`,
         );
       },
     );
