@@ -275,7 +275,10 @@
   import { ArrowLeft, ArrowRight, Share2, Star, X, createIcons } from "lucide";
   import Lenis from "lenis";
 
-  const COVER_BASE_URL = import.meta.env.PUBLIC_COVER_BASE_URL;
+  const COVER_BASE_URL = (
+    import.meta.env.PUBLIC_COVER_BASE_URL ||
+    "https://pub-fe8ab91a3b5f4c72ab805f8ba4cee50d.r2.dev"
+  ).replace(/\/+$/, "");
 
   const openWindows = new Map();
   let nextZIndex = 1;
@@ -353,8 +356,13 @@
     const extraGenres = genres.length > 1 ? `+${genres.length - 1}` : "";
 
     const cover = requiredElement(windowElement, ".book-window__cover");
-    cover.src = `${COVER_BASE_URL}/Books/${book.cover}.webp`;
+    const coverUrl = `${COVER_BASE_URL}/Books/${book.cover}.webp`;
+    cover.src = coverUrl;
     cover.alt = book.title;
+    cover.onerror = () => {
+      cover.src = "https://placehold.co/600x900/111827/ffffff?text=Book+Cover";
+      console.warn("Cover image failed to load:", coverUrl);
+    };
     requiredElement(windowElement, ".book-window__author").textContent =
       book.author;
     requiredElement(windowElement, ".book-window__title").textContent =
