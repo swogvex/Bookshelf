@@ -2,7 +2,7 @@
 title: "Eloquent JavaScript"
 author: "Marijin Haverbeke"
 
-cover: "ELOQUENT-JAVASCRIPT"
+cover: "ELOQUENTJAVASCRIPT"
 
 year: 2022
 
