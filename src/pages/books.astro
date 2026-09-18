@@ -105,6 +105,14 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
     let filterScroller: Lenis | undefined;
     let filterAnimationFrame: number | undefined;
 
+    function shouldUseSmoothScroll() {
+      return (
+        !window.matchMedia("(pointer: coarse)").matches &&
+        !window.matchMedia("(max-width: 767px)").matches &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      );
+    }
+
     function stopFilterScroll() {
       if (filterAnimationFrame !== undefined) {
         cancelAnimationFrame(filterAnimationFrame);
@@ -117,6 +125,8 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
 
     function startFilterScroll() {
       stopFilterScroll();
+
+      if (!shouldUseSmoothScroll()) return;
 
       const wrapper = document.querySelector(".book-filters__scroll");
       const content = wrapper?.firstElementChild;
@@ -370,6 +380,17 @@ const genres = [...new Set(books.flatMap((book) => book.data.genres))].sort(
     gap: clamp(1rem, 4vw, 2rem);
     justify-content: center;
     padding-top: 3.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   @media (min-width: 768px) {

@@ -21,6 +21,16 @@ const books = defineCollection({
   }),
 });
 
+const writings = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/writings" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    featured: z.boolean().optional(),
+  }),
+});
+
 export const collections = {
   books,
+  writings,
 };

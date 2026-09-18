@@ -1,0 +1,189 @@
+---
+import Layout from "../layouts/Layout.astro";
+import WindowManager from "../components/WindowManager.astro";
+import WritingDetail from "../components/WritingDetail.astro";
+import { getCollection, render } from "astro:content";
+import "../styles/global.css";
+
+const writingEntries = await Promise.all(
+  (await getCollection("writings"))
+    .sort(
+      (a, b) =>
+        new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+    )
+    .map(async (writing) => {
+      const { Content } = await render(writing);
+      return { ...writing, Content };
+    }),
+);
+
+const writingsData = writingEntries.map((writing) => ({
+  id: writing.id,
+  title: writing.data.title,
+  date: writing.data.date,
+  content: writing.body,
+}));
+---
+
+<Layout title="Writings">
+  <section class="writings-list" aria-label="Writings list">
+    {
+      writingEntries.map((writing) => (
+        <button
+          class="writing-item"
+          type="button"
+          data-writing-slug={writing.id}
+          aria-label={`Open ${writing.data.title}`}
+        >
+          <span class="writing-item__title">{writing.data.title}</span>
+          <time class="writing-item__date" datetime={writing.data.date}>
+            {writing.data.date}
+          </time>
+        </button>
+      ))
+    }
+  </section>
+
+  <WindowManager />
+
+  {
+    writingEntries.map((writing) => (
+      <template id={`writing-template-${writing.id}`}>
+        <WritingDetail writing={writing}>
+          <writing.Content />
+        </WritingDetail>
+      </template>
+    ))
+  }
+
+  <script define:vars={{ writingsData }}>
+    window.writingsData = writingsData;
+  </script>
+</Layout>
+
+<style is:global>
+  .writings-list {
+    display: block;
+    width: min(100%, 900px);
+    margin: 0 auto;
+    padding-top: 2.75rem;
+  }
+
+  .writing-item {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 0 0.9rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    transition: opacity 0.2s ease;
+  }
+
+  .writing-item + .writing-item {
+    margin-top: 0.15rem;
+  }
+
+  .writing-item:hover {
+    opacity: 0.75;
+  }
+
+  .writing-item:focus-visible {
+    outline: none;
+    opacity: 0.75;
+  }
+
+  .writing-item__title {
+    display: block;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.28;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    text-decoration: none;
+  }
+
+  .writing-item__date {
+    display: block;
+    margin-top: 0.32rem;
+    color: rgba(17, 17, 17, 0.62);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .writing-template-content {
+    display: none;
+  }
+
+  .writing-template-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .writing-template-header h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.7rem, 2.4vw, 2.3rem);
+    line-height: 1.1;
+    font-weight: 500;
+  }
+
+  .writing-template-header time {
+    opacity: 0.75;
+    font-size: 0.9rem;
+  }
+
+  .writing-template-content h1,
+  .writing-template-content h2,
+  .writing-template-content h3,
+  .writing-template-content h4,
+  .writing-template-content h5,
+  .writing-template-content h6 {
+    margin: 1.75rem 0 0.75rem;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .writing-template-content p,
+  .writing-template-content ul,
+  .writing-template-content ol,
+  .writing-template-content blockquote {
+    margin: 0 0 1rem;
+    line-height: 1.75;
+  }
+
+  .writing-template-content ul,
+  .writing-template-content ol {
+    padding-left: 1.25rem;
+  }
+
+  .writing-template-content blockquote {
+    padding-left: 1rem;
+    border-left: 1px solid var(--text);
+    opacity: 0.8;
+  }
+
+  .writing-template-content strong {
+    font-weight: 600;
+  }
+
+  @media (max-width: 767px) {
+    .writings-list {
+      padding-top: 1.75rem;
+    }
+
+    .writing-item {
+      padding-top: 0.7rem;
+      padding-bottom: 0.8rem;
+    }
+
+    .writing-item__title {
+      font-size: 1.35rem;
+    }
+
+    .writing-item__date {
+      font-size: 0.85rem;
+    }
+  }
+</style>

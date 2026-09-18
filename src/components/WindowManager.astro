@@ -308,7 +308,23 @@
     windowElement.style.zIndex = String(nextZIndex++);
   }
 
+  function shouldUseReducedMotion() {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
+  function shouldUseSmoothScroll() {
+    return (
+      !window.matchMedia("(pointer: coarse)").matches &&
+      !window.matchMedia("(max-width: 767px)").matches &&
+      !shouldUseReducedMotion()
+    );
+  }
+
   function startWindowScroll(windowElement) {
+    if (!shouldUseSmoothScroll()) {
+      return;
+    }
+
     const scrollElement = requiredElement(
       windowElement,
       ".book-window__scroll",
@@ -371,6 +387,30 @@
 			</span>
 		`;
     windowElement.dataset.slug = book.id;
+    windowElement.dataset.type = "book";
+  }
+
+  function renderWriting(windowElement, writing) {
+    const title = requiredElement(windowElement, ".book-window__title");
+    const body = requiredElement(windowElement, ".book-window__body");
+    const meta = requiredElement(windowElement, ".book-window__meta");
+
+    title.textContent = writing.title;
+    meta.innerHTML = `<span>${writing.date}</span>`;
+    body.innerHTML = "";
+
+    const template = document.getElementById(`writing-template-${writing.id}`);
+    if (template && template.content) {
+      const content = template.content.cloneNode(true);
+      body.appendChild(content);
+    } else {
+      const fallback = document.createElement("div");
+      fallback.innerHTML = writing.content || "";
+      body.appendChild(fallback);
+    }
+
+    windowElement.dataset.slug = writing.id;
+    windowElement.dataset.type = "writing";
   }
 
   function getFilteredBooks() {
@@ -382,20 +422,29 @@
     return filteredIds.map((id) => booksById.get(id)).filter(Boolean);
   }
 
-  function changeBook(windowElement, direction) {
-    const books = getFilteredBooks();
-    const currentIndex = books.findIndex(
-      (book) => book.id === windowElement.dataset.slug,
+  function getWritings() {
+    return Array.isArray(window.writingsData) ? window.writingsData : [];
+  }
+
+  function changeWindow(windowElement, direction) {
+    const type = windowElement.dataset.type || "book";
+    const entries = type === "writing" ? getWritings() : getFilteredBooks();
+    const currentIndex = entries.findIndex(
+      (entry) => entry.id === windowElement.dataset.slug,
     );
     if (currentIndex === -1) return;
 
-    const nextBook = books[currentIndex + direction];
-    if (!nextBook) return;
+    const nextEntry = entries[currentIndex + direction];
+    if (!nextEntry) return;
 
     openWindows.delete(windowElement.dataset.slug);
-    renderBook(windowElement, nextBook);
+    if (type === "writing") {
+      renderWriting(windowElement, nextEntry);
+    } else {
+      renderBook(windowElement, nextEntry);
+    }
     renderIcons(windowElement);
-    openWindows.set(nextBook.id, windowElement);
+    openWindows.set(nextEntry.id, windowElement);
   }
 
   function makeDraggable(windowElement) {
@@ -444,6 +493,7 @@
     }
 
     const isMobile = window.innerWidth < 768;
+    const shouldAnimateWindow = !isMobile && !shouldUseReducedMotion();
     if (isMobile) {
       openWindows.forEach((windowElement) => {
         stopWindowScroll(windowElement);
@@ -467,6 +517,10 @@
     windowElement.style.top = `${top}px`;
     if (isMobile) {
       windowElement.style.maxHeight = `calc(100dvh - ${top + 8}px)`;
+      windowElement.style.transition = "none";
+    }
+    if (!shouldAnimateWindow) {
+      windowElement.style.transition = "none";
     }
     windowElement.innerHTML = `
       <div class="book-window__scroll">
@@ -506,7 +560,7 @@
     startWindowScroll(windowElement);
     openWindows.set(slug, windowElement);
     focusWindow(windowElement);
-    if (!isMobile) makeDraggable(windowElement);
+    if (!isMobile && !shouldUseReducedMotion()) makeDraggable(windowElement);
 
     requiredElement(windowElement, ".book-window__close").addEventListener(
       "click",
@@ -518,17 +572,121 @@
     );
     requiredElement(windowElement, ".book-window__prev").addEventListener(
       "click",
-      () => changeBook(windowElement, -1),
+      () => changeWindow(windowElement, -1),
     );
     requiredElement(windowElement, ".book-window__next").addEventListener(
       "click",
-      () => changeBook(windowElement, 1),
+      () => changeWindow(windowElement, 1),
+    );
+    requiredElement(windowElement, ".book-window__share").addEventListener(
+      "click",
+      async () => {
+        const route = "books";
+        await navigator.clipboard.writeText(
+          `${location.origin}/${route}#${windowElement.dataset.slug}`,
+        );
+      },
+    );
+    windowElement.addEventListener("pointerdown", () =>
+      focusWindow(windowElement),
+    );
+  }
+
+  function openWriting(slug) {
+    const manager = getManager();
+    if (!manager) return;
+
+    if (openWindows.has(slug)) {
+      focusWindow(openWindows.get(slug));
+      return;
+    }
+
+    const isMobile = window.innerWidth < 768;
+    const shouldAnimateWindow = !isMobile && !shouldUseReducedMotion();
+    if (isMobile) {
+      openWindows.forEach((windowElement) => {
+        stopWindowScroll(windowElement);
+        windowElement.remove();
+      });
+      openWindows.clear();
+    }
+
+    const writing = getWritings().find((item) => item.id === slug);
+    if (!writing) return;
+
+    const windowElement = document.createElement("section");
+    windowElement.className = "book-window book-window--writing";
+    const offset = (offsetCount++ % 5) * 40;
+    const maxLeft = Math.max(8, window.innerWidth - 696);
+    const maxTop = Math.max(8, window.innerHeight - 500);
+    windowElement.style.left = `${Math.min(120 + offset, maxLeft)}px`;
+    const top = isMobile
+      ? Math.min(120 + offset, Math.max(20, window.innerHeight * 0.12))
+      : Math.min(120 + offset, maxTop);
+    windowElement.style.top = `${top}px`;
+    if (isMobile) {
+      windowElement.style.maxHeight = `calc(100dvh - ${top + 8}px)`;
+      windowElement.style.transition = "none";
+    }
+    if (!shouldAnimateWindow) {
+      windowElement.style.transition = "none";
+    }
+    windowElement.innerHTML = `
+      <div class="book-window__scroll">
+        <div class="book-window__header">
+          <div class="book-window__nav">
+            <button class="book-window__prev" aria-label="Previous writing"><i data-lucide="arrow-left"></i></button>
+            <button class="book-window__next" aria-label="Next writing"><i data-lucide="arrow-right"></i></button>
+          </div>
+          <div class="book-window__actions">
+            <button class="book-window__share" aria-label="Copy writing link"><i data-lucide="share-2"></i></button>
+            <button class="book-window__close" aria-label="Close window"><i data-lucide="x"></i></button>
+          </div>
+        </div>
+        <div class="book-window__content book-window__content--writing">
+          <div>
+            <p class="book-window__meta"></p>
+            <h2 class="book-window__title"></h2>
+            <div class="book-window__body"></div>
+          </div>
+        </div>
+      </div>
+      <div class="book-window__bottom-mask" aria-hidden="true"></div>
+    `;
+
+    const maxScrollHeight = isMobile ? 630 : 480;
+    requiredElement(windowElement, ".book-window__scroll").style.maxHeight =
+      `min(${maxScrollHeight}px, calc(100dvh - ${top + 8}px))`;
+
+    renderWriting(windowElement, writing);
+    manager.appendChild(windowElement);
+    renderIcons(windowElement);
+    startWindowScroll(windowElement);
+    openWindows.set(slug, windowElement);
+    focusWindow(windowElement);
+    if (!isMobile && !shouldUseReducedMotion()) makeDraggable(windowElement);
+
+    requiredElement(windowElement, ".book-window__close").addEventListener(
+      "click",
+      () => {
+        openWindows.delete(windowElement.dataset.slug);
+        stopWindowScroll(windowElement);
+        windowElement.remove();
+      },
+    );
+    requiredElement(windowElement, ".book-window__prev").addEventListener(
+      "click",
+      () => changeWindow(windowElement, -1),
+    );
+    requiredElement(windowElement, ".book-window__next").addEventListener(
+      "click",
+      () => changeWindow(windowElement, 1),
     );
     requiredElement(windowElement, ".book-window__share").addEventListener(
       "click",
       async () => {
         await navigator.clipboard.writeText(
-          `${location.origin}/books#${windowElement.dataset.slug}`,
+          `${location.origin}/writings/${windowElement.dataset.slug}`,
         );
       },
     );
@@ -548,10 +706,17 @@
   document.addEventListener("astro:before-swap", closeAllWindows);
 
   document.addEventListener("click", (event) => {
-    const trigger =
-      event.target instanceof Element
-        ? event.target.closest("[data-book-slug]")
-        : null;
-    if (trigger) openBook(trigger.getAttribute("data-book-slug"));
+    const target = event.target instanceof Element ? event.target : null;
+
+    const bookTrigger = target?.closest("[data-book-slug]");
+    if (bookTrigger) {
+      openBook(bookTrigger.getAttribute("data-book-slug"));
+      return;
+    }
+
+    const writingTrigger = target?.closest("[data-writing-slug]");
+    if (writingTrigger) {
+      openWriting(writingTrigger.getAttribute("data-writing-slug"));
+    }
   });
 </script>

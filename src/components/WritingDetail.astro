@@ -1,0 +1,93 @@
+---
+const { writing } = Astro.props;
+---
+
+<article class="writing-detail">
+  <header class="writing-detail__header">
+    <h2 class="writing-detail__title">{writing.data.title}</h2>
+    <time class="writing-detail__date" datetime={writing.data.date}>
+      {writing.data.date}
+    </time>
+  </header>
+
+  <div class="writing-detail__content">
+    <slot />
+  </div>
+</article>
+
+<style>
+  .writing-detail {
+    color: var(--text);
+  }
+
+  .writing-detail__header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .writing-detail__title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+    line-height: 1.15;
+    font-weight: 500;
+  }
+
+  .writing-detail__date {
+    display: inline-block;
+    opacity: 0.7;
+    font-size: 0.9rem;
+  }
+
+  .writing-detail__content {
+    line-height: 1.75;
+    overflow-wrap: anywhere;
+  }
+
+  .writing-detail__content > :first-child {
+    margin-top: 0;
+  }
+
+  .writing-detail__content > :last-child {
+    margin-bottom: 0;
+  }
+
+  .writing-detail__content h1,
+  .writing-detail__content h2,
+  .writing-detail__content h3,
+  .writing-detail__content h4,
+  .writing-detail__content h5,
+  .writing-detail__content h6 {
+    margin: 1.75rem 0 0.75rem;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+
+  .writing-detail__content p,
+  .writing-detail__content ul,
+  .writing-detail__content ol,
+  .writing-detail__content blockquote {
+    margin: 0 0 1rem;
+  }
+
+  .writing-detail__content ul,
+  .writing-detail__content ol {
+    padding-left: 1.2rem;
+  }
+
+  .writing-detail__content blockquote {
+    padding-left: 1rem;
+    border-left: 1px solid var(--text);
+    opacity: 0.8;
+  }
+
+  .writing-detail__content strong {
+    font-weight: 600;
+  }
+
+  .writing-detail__content a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+</style>
