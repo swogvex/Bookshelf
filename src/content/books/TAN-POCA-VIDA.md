@@ -1,5 +1,5 @@
 ---
-title: "TAN-POCA-VIDA"
+title: "Tan Poca Vida"
 author: "Hanya Yanagihara"
 
 cover: "TAN-POCA-VIDA"

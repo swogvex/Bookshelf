@@ -6,7 +6,7 @@ featured: false
 
 # A brief note
 
-This is a first writing to make the collection work. It demonstrates the minimalist article layout and the floating-window behavior.
+This is a first writing to make the collection work. It ñññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññññdemonstrates the minimalist article layout and the floating-window behavior.
 
 ## Why it matters
 

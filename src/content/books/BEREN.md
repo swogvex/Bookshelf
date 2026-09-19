@@ -13,7 +13,7 @@ genres:
   - Aventura
   - Romance
 
-finishedAt: "2026-10-22"
+finishedAt: "2026-10-25"
 
 featured: true
 ---

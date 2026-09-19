@@ -1,5 +1,5 @@
 ---
-title: "YA-NADIE-ESCRIBE-CARTAS"
+title: "Ya Nadie Escribe Cartas"
 author: " Jang Eun-jin"
 
 cover: "YA-NADIE-ESCRIBE-CARTAS"

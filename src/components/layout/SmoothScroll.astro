@@ -14,8 +14,16 @@
     lenis = undefined;
   }
 
+  function shouldUseSmoothScroll() {
+    return (
+      !window.matchMedia("(pointer: coarse)").matches &&
+      !window.matchMedia("(max-width: 767px)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+  }
+
   function startSmoothScroll() {
-    if (lenis) return;
+    if (lenis || !shouldUseSmoothScroll()) return;
 
     lenis = new Lenis({
       lerp: 0.08,

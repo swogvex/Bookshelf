@@ -187,6 +187,32 @@ const coverUrl = `${COVER_BASE_URL}/Books/${coverSlug}.webp`;
     opacity: 0.85;
   }
 
+  @media (hover: none), (pointer: coarse) {
+    .book,
+    .book-cover,
+    .book-cover::before,
+    .book-cover::after {
+      transition: none !important;
+      transform: none !important;
+    }
+
+    .book:hover .book-cover,
+    .book-link:active .book-cover {
+      transform: none !important;
+    }
+
+    .book:hover .book-cover::before,
+    .book-link:active .book-cover::before {
+      width: 20px;
+    }
+
+    .book:hover .book-cover::after,
+    .book-link:active .book-cover::after {
+      width: 90%;
+      opacity: 0.1;
+    }
+  }
+
   /* --- .book-inside: mismo truco de "páginas" con box-shadow escalonado.
      Recoloreado para que se note más (blanco puro / beige) y termina
      en un tono oscuro (última "hoja" = contratapa negra/gris). --- */

@@ -64,15 +64,15 @@ const writingsData = writingEntries.map((writing) => ({
 <style is:global>
   .writings-list {
     display: block;
-    width: min(100%, 900px);
+    width: min(calc(100% - 2rem), 750px);
     margin: 0 auto;
-    padding-top: 2.75rem;
+    padding-top: 1.05rem;
   }
 
   .writing-item {
     display: block;
     width: 100%;
-    padding: 0.8rem 0 0.9rem;
+    padding: 0.1rem 0 0.1rem;
     border: 0;
     background: transparent;
     color: inherit;
@@ -97,21 +97,23 @@ const writingsData = writingEntries.map((writing) => ({
 
   .writing-item__title {
     display: block;
-    font-size: clamp(1.35rem, 2vw, 1.8rem);
-    line-height: 1.28;
+    font-size: clamp(1.25rem, 1.8vw, 1.25rem);
+    line-height: 1.22;
     letter-spacing: -0.02em;
     font-weight: 400;
     text-decoration: none;
+    font-family: inherit;
   }
 
   .writing-item__date {
     display: block;
-    margin-top: 0.32rem;
+    margin-top: 0.28rem;
     color: rgba(17, 17, 17, 0.62);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1.4;
     letter-spacing: 0;
     text-transform: none;
+    font-family: inherit;
   }
 
   .writing-template-content {
